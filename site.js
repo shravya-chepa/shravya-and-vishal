@@ -23,8 +23,8 @@ const CONFIG = {
     { t: "4:00 PM", h: "Ceremony",          p: "Vows, rings, and a few happy tears." },
     { t: "4:30 PM", h: "Golden hour",       p: "Photos and chilled drinks as the sun goes down. Settle in and wander through the many little corners we've set up for you." },
     { t: "5:30 PM", h: "Dinner party",      p: "Good food, great company, and a few planned activities as you dine." },
-    { t: "7:30 PM", h: "Dessert & dancing", p: "Cake, music, and the dance floor." },
-    { t: "8:30 PM", h: "Goodnight",         p: "Send-off under the stars." }
+    { t: "7:00 PM", h: "Dessert & dancing", p: "Cake, music, and the dance floor." },
+    { t: "8:00 PM", h: "Goodnight",         p: "Send-off under the stars." }
   ],
   storySteps: [
     { k: "Before",  h: "Two separate maps",  p: "Two cities, two families, two daily routines that had never crossed. [Add a line about where each of you grew up.]" },
