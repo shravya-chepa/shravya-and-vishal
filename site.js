@@ -325,9 +325,9 @@ function printFinish(cv) {
 const PAGES = [
   ["index.html", "Welcome", '<circle cx="12" cy="12" r="8"/>'],
   ["invitation.html", "Invitation", '<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 7l9 7 9-7"/>'],
+  ["rsvp.html", "RSVP", '<circle cx="12" cy="12" r="8"/><path d="M8.5 12.5l2.3 2.3 4.7-5"/>'],
   ["the-day.html", "The Day", '<circle cx="12" cy="13" r="4"/><path d="M2 19h20M12 3v3M4.9 6.9l2 2M19.1 6.9l-2 2M2 13h2M20 13h2"/>'],
   ["countdown.html", "Countdown", '<path d="M7 3h10M7 21h10M8 3c0 5 8 5 8 9s-8 4-8 9M16 3c0 5-8 5-8 9s8 4 8 9"/>'],
-  ["rsvp.html", "RSVP", '<circle cx="12" cy="12" r="8"/><path d="M8.5 12.5l2.3 2.3 4.7-5"/>'],
   ["faq.html", "FAQ", '<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.6v.6M12 17h.01"/>'],
   ["things-to-do.html", "Things to Do", '<path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/>'],
   ["story.html", "Our Story", '<path d="M4 5.5C6.5 4 9.5 4 12 6c2.5-2 5.5-2 8-.5V19c-2.5-1.5-5.5-1.5-8 .5-2.5-2-5.5-2-8-.5z"/><path d="M12 6v13.5"/>'],
