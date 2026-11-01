@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Countdown</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..600;1,400..600&family=Jost:wght@300;400;500;600&family=Pinyon+Script&display=swap">
+<link rel="stylesheet" href="site.css">
+<script>try{history.scrollRestoration="manual"}catch(e){}try{if(sessionStorage.getItem("vt")){document.documentElement.classList.add("vt-in");sessionStorage.removeItem("vt")}}catch(e){}</script>
+</head>
+<body data-page="countdown.html" class="page-countdown">
+<div class="veil" aria-hidden="true"></div>
+<main>
+<!-- ================= COUNTDOWN ================= -->
+<section id="countdown" class="page countdown">
+  <canvas class="wash" id="cdWash" aria-hidden="true"></canvas>
+  <div class="wrap" style="position:relative">
+      <header class="page-head reveal">
+        <span class="eyebrow">Countdown</span>
+        <h1>Until we say yes</h1>
+        <p class="lede">Counting down to the ceremony on Friday, December 18, in Laguna Beach time.</p>
+      </header>
+    <div class="cd">
+    <figure class="pond" id="pond" aria-label="Two swans drawing closer each day from our engagement on October 7 to the wedding on December 18">
+      <svg id="pondSvg" viewBox="0 0 600 190" aria-hidden="true"></svg>
+      <figcaption class="pond-cap"><span>October 7<i>Engaged</i></span><span>December 18<i>Married</i></span></figcaption>
+    </figure>
+    <div class="flips" id="flips" role="timer" aria-live="off"></div>
+    <div class="cd-note">
+      <span>Right now in Laguna Beach: <b id="lagunaNow">–</b></span>
+      <span>Sunset that evening: <b>about 4:47 PM</b></span>
+    </div>
+    <div class="cal-row">
+      <a class="btn" id="calLink" target="_blank" rel="noopener">Add to Google Calendar</a>
+      <a class="btn" id="icsLink" href="wedding.ics" download="Shravya-and-Vishal-wedding.ics">Download ICS file</a>
+    </div>
+    </div>
+  </div>
+</section>
+
+</main>
+<div id="nextSlot"></div>
+<script src="site.js"></script>
+<script>
+/* ---------------- countdown ---------------- */
+(function countdown() {
+  const target = new Date(CONFIG.ceremony).getTime();
+  const units = [["d", "Days"], ["h", "Hours"], ["m", "Minutes"], ["s", "Seconds"]];
+  $("#flips").innerHTML = units.map(([k, l], n) => `${n ? '<i class="cd-sep" aria-hidden="true"></i>' : ""}<div class="cd-u"><span class="cd-n" id="fc-${k}"><b>00</b></span><span class="fl">${l}</span></div>`).join("");
+  const cur = {};
+  // each number rolls: the new one slides up from below into place, the old one slides up and away.
+  // only ever two numbers in a slot; anything older is removed at once, so nothing can pile up (e.g. after a background tab wakes)
+  function set(k, v) {
+    const el = $("#fc-" + k); if (cur[k] === v) return;
+    const first = cur[k] === undefined; cur[k] = v;
+    if (REDUCED || first || document.hidden) { el.innerHTML = `<b>${v}</b>`; return; }
+    $$("b.out", el).forEach(b => b.remove());
+    const old = $("b:not(.out)", el);
+    if (old) { old.classList.remove("in"); old.classList.add("out"); old.addEventListener("animationend", () => old.remove(), { once: true }); setTimeout(() => old.remove(), 1200); }
+    const nb = document.createElement("b"); nb.className = "in"; nb.textContent = v; el.appendChild(nb);
+  }
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) $$(".cd-n").forEach(el => { const keep = $("b:last-child", el); $$("b", el).forEach(b => b !== keep && b.remove()); keep && keep.classList.remove("in", "out"); }); });
+  let celebrated = false;
+  const fmt = new Intl.DateTimeFormat("en-US", { timeZone: "America/Los_Angeles", weekday: "short", hour: "numeric", minute: "2-digit" });
+  function tick() {
+    let ms = Math.max(0, target - Date.now());
+    const d = Math.floor(ms / 864e5); ms -= d * 864e5;
+    const h = Math.floor(ms / 36e5); ms -= h * 36e5;
+    const m = Math.floor(ms / 6e4); ms -= m * 6e4;
+    const s = Math.floor(ms / 1e3);
+    set("d", String(d).padStart(2, "0")); set("h", String(h).padStart(2, "0")); set("m", String(m).padStart(2, "0")); set("s", String(s).padStart(2, "0"));
+    $("#lagunaNow").textContent = fmt.format(new Date());
+    if (target - Date.now() <= 0 && !celebrated) {
+      celebrated = true;
+      $("#flips").insertAdjacentHTML("afterend", `<p class="cd-done">Today's the day</p>`);
+      confetti(innerWidth / 2, innerHeight * .6, 200);
+    }
+  }
+  tick(); setInterval(tick, 1000);
+  /* two swans, one blush and one aqua, on a painted pond. they drift toward each other from the engagement (Oct 7) to the wedding */
+  (function swans() {
+    const svg = $("#pondSvg"), WL = 120;                       // waterline
+    const NECK = "M89.55 73.72L88.31 72.13L87.10 70.52L85.92 68.89L84.77 67.23L83.67 65.56L82.64 63.85L81.77 62.07L80.95 60.29L80.17 58.50L79.45 56.70L78.77 54.91L78.16 53.12L77.59 51.33L77.09 49.55L76.64 47.77L76.26 46.00L75.93 44.24L75.68 42.50L75.49 40.77L75.37 39.05L75.32 37.35L75.34 35.67L75.44 34.01L75.61 32.37L75.87 30.70L76.24 29.13L76.72 27.62L77.29 26.20L77.96 24.85L78.70 23.58L79.52 22.40L80.41 21.31L81.35 20.31L82.34 19.41L83.36 18.61L84.42 17.91L85.50 17.32L86.59 16.85L87.68 16.48L88.76 16.23L89.83 16.09L90.88 16.06L91.90 16.16L92.89 16.36L93.85 16.69L94.78 17.14L95.68 17.73L96.54 18.46L96.98 18.89L97.39 19.32L97.78 19.76L98.13 20.21L98.46 20.66L98.76 21.12L99.03 21.58L99.28 22.05L99.50 22.53L99.70 23.01L99.86 23.50L100.00 23.99L100.12 24.49L100.21 25.00L100.27 25.52L100.31 26.04L100.32 26.57L100.30 27.10L100.26 27.64L100.19 28.19L100.09 28.74L99.96 29.31L99.80 29.87L99.61 30.44L102.39 31.56L102.67 30.88L102.92 30.20L103.13 29.51L103.31 28.82L103.46 28.13L103.57 27.43L103.65 26.73L103.69 26.04L103.69 25.34L103.66 24.64L103.60 23.95L103.50 23.26L103.36 22.57L103.18 21.89L102.97 21.21L102.72 20.54L102.43 19.88L102.11 19.23L101.76 18.58L101.37 17.95L100.94 17.33L100.48 16.72L99.99 16.12L99.46 15.54L98.25 14.44L96.95 13.51L95.57 12.78L94.13 12.22L92.64 11.85L91.12 11.65L89.59 11.63L88.05 11.77L86.52 12.07L85.01 12.52L83.53 13.11L82.08 13.84L80.67 14.70L79.31 15.69L78.01 16.80L76.78 18.03L75.62 19.37L74.55 20.83L73.57 22.39L72.69 24.05L71.92 25.82L71.28 27.68L70.76 29.62L70.39 31.63L70.15 33.51L69.99 35.41L69.91 37.32L69.92 39.25L70.00 41.18L70.16 43.13L70.40 45.08L70.71 47.04L71.08 49.00L71.52 50.96L72.03 52.92L72.59 54.88L73.22 56.84L73.90 58.79L74.64 60.74L75.42 62.68L76.26 64.61L77.14 66.53L77.95 68.49L78.77 70.47L79.63 72.44L80.54 74.40L81.47 76.35L82.45 78.28Z";
+    const PAL = {
+      p: { lt: "#F7D6CF", mid: "#EDB9AF", dp: "#B5525E", sh: "#8B2C3A" },
+      b: { lt: "#FFFBF4", mid: "#F3EBDF", dp: "#D8C7B0", sh: "#A8927A" }
+    };
+    // a swan facing right, painted in soft layers (no outlines), in its own colours
+    const swan = (k) => { const c = PAL[k], g = id => `${k}${id}`; return `
+      <g id="swan-${k}">
+        <defs>
+          <linearGradient id="${g("Bd")}" x1="0" y1="56" x2="0" y2="90" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="${c.lt}"/><stop offset=".45" stop-color="${c.mid}"/><stop offset="1" stop-color="${c.dp}"/></linearGradient>
+          <linearGradient id="${g("Wg")}" x1="64" y1="48" x2="16" y2="80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="${c.lt}"/><stop offset=".6" stop-color="${c.mid}" stop-opacity=".95"/><stop offset="1" stop-color="${c.dp}" stop-opacity=".9"/></linearGradient>
+          <linearGradient id="${g("Nk")}" x1="70" y1="0" x2="104" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="${c.dp}"/><stop offset=".35" stop-color="${c.mid}"/><stop offset=".7" stop-color="${c.lt}"/><stop offset="1" stop-color="${c.mid}"/></linearGradient>
+          <radialGradient id="${g("Hd")}" cx="102" cy="28" r="7" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="${c.lt}"/><stop offset=".7" stop-color="${c.mid}"/><stop offset="1" stop-color="${c.dp}"/></radialGradient>
+          <linearGradient id="${g("Bk")}" x1="106" y1="31" x2="112" y2="39.5" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#C9714A"/><stop offset=".5" stop-color="#E0915E"/><stop offset="1" stop-color="#EBAA74"/></linearGradient>
+        </defs>
+        <path d="M5 58 C 12 69, 25 76, 44 77.5 C 62 79, 76 76, 85 71 C 93 74, 96 81, 92 86 C 82 90, 52 91, 32 88.5 C 17 86.5, 8 76, 5 58 Z" fill="url(#${g("Bd")})"/>
+        <path d="M10 70 C 24 84, 56 88, 90 84" fill="none" stroke="${c.sh}" stroke-width="3" opacity=".14" stroke-linecap="round"/>
+        <path d="${NECK}" fill="url(#${g("Nk")})"/>
+        <path d="M77 66 C 73 54, 72 42, 74.5 32 C 77 21, 86 15.5, 93 17" fill="none" stroke="${c.sh}" stroke-width="1" opacity=".35" stroke-linecap="round"/>
+        <path d="M18 79 C 21 64, 36 50, 62 50.5 C 57 54, 54 58, 56 63 Q 53.5 66.8, 49.4 66.8 Q 47.4 70.8, 42.6 71.6 Q 39.6 75.2, 33.6 76 Q 27 78.8, 18 79 Z" fill="url(#${g("Wg")})"/>
+        <path d="M24 77 C 29 67, 39 59.5, 53 56 M31 76.2 C 35.5 69.5, 43.5 64.2, 54.5 61.2 M38 75 C 42.5 70.6, 48.5 67.6, 55.5 65.8" fill="none" stroke="${c.sh}" stroke-width=".9" opacity=".4" stroke-linecap="round"/>
+        <path d="M25 78.4 C 30 68.6, 40 61, 54 57.6 M32 77.6 C 36.5 71, 44.5 65.8, 55.5 62.8" fill="none" stroke="${c.sh}" stroke-width=".6" opacity=".22" stroke-linecap="round"/>
+        <path d="M8 61 C 11 66.5, 15 70, 20 72" fill="none" stroke="${c.sh}" stroke-width=".8" opacity=".35" stroke-linecap="round"/>
+        <path d="M99.15 25.73C99.82 25.45 100.78 26.25 101.59 26.71C102.40 27.17 103.29 27.80 104.03 28.48C104.77 29.16 105.48 30.10 106.02 30.78C106.56 31.47 107.29 31.95 107.25 32.59C107.22 33.23 106.56 34.55 105.81 34.64C105.06 34.73 103.73 33.74 102.75 33.15C101.77 32.55 100.79 31.86 99.93 31.06C99.07 30.26 97.75 29.25 97.62 28.36C97.49 27.47 98.49 26.00 99.15 25.73Z" fill="url(#${g("Hd")})"/>
+        <path d="M101.27 27.10Q103.71 28.86 105.70 31.17" fill="none" stroke="${c.sh}" stroke-width=".7" opacity=".4" stroke-linecap="round"/>
+        <path d="M107.07 32.18C107.63 32.42 108.61 33.78 109.33 34.64C110.04 35.50 110.90 36.64 111.39 37.33C111.88 38.02 112.29 38.54 112.27 38.77C112.24 39.01 111.85 39.07 111.23 38.76C110.62 38.46 109.48 37.59 108.58 36.95C107.68 36.31 106.27 35.55 105.83 34.92C105.40 34.30 105.75 33.66 105.96 33.21C106.16 32.75 106.51 31.94 107.07 32.18Z" fill="url(#${g("Bk")})"/>
+        <path d="M108.07 33.79Q109.97 35.89 111.62 37.98" fill="none" stroke="#F8D9B6" stroke-width=".45" opacity=".85" stroke-linecap="round"/>
+        <path d="M104.62 31.05C105.07 30.99 106.92 31.79 107.29 32.23C107.66 32.67 107.14 33.35 106.86 33.69C106.57 34.04 105.93 34.49 105.56 34.31C105.19 34.13 104.78 33.16 104.62 32.62C104.47 32.08 104.18 31.12 104.62 31.05Z" fill="#3B2B2E" opacity=".78"/>
+        <path d="M107.20 32.02C107.32 31.91 108.05 31.95 108.28 32.14C108.51 32.33 108.71 33.06 108.59 33.18C108.47 33.29 107.79 33.04 107.56 32.84C107.33 32.65 107.08 32.14 107.20 32.02Z" fill="#2E2224" opacity=".9"/>
+        <circle cx="103.97" cy="30.90" r=".55" fill="#1F1718"/>
+      </g>`; };
+
+    // painted water: a soft wash, then many little brush strokes and crescents, denser near the swans
+    const R = rng(1218); let crescents = ""; const layers = ["", "", "", ""];
+    const wave = (x, y, len, amp) => `M${x.toFixed(1)} ${y.toFixed(1)}q${(len / 4).toFixed(1)} ${(-amp).toFixed(2)} ${(len / 2).toFixed(1)} 0t${(len / 2).toFixed(1)} 0`;
+    for (let i = 0; i < 120; i++) {
+      const row = Math.pow(R(), 1.35), y = WL + 1 + row * 52;           // nearer rows: longer, thicker, more spread
+      const spread = 240 + row * 300, x = 300 + (R() - .5) * spread * 1.5;
+      if (x < 6 || x > 594) continue;
+      const len = 8 + row * 34 + R() * 14, w = .45 + row * 1.1;
+      const tone = R(), col = tone < .55 ? "#9EC3B9" : tone < .78 ? "#7AABA2" : tone < .93 ? "#FFFFFF" : (x < 300 ? "#F2B7BA" : "#C2DED7");
+      const L = Math.min(3, Math.floor(row * 4)), dur = (6 + R() * 5).toFixed(2), dl = (-R() * 11).toFixed(2), op = (.32 + R() * .45 * (1 - row * .35)), tx = (26 + row * 46).toFixed(1);
+      layers[L] += `<path class="wv" style="--d:${dur}s;--dl:${dl}s;--o:${op.toFixed(2)};--tx:${tx}px" d="${wave(x - len / 2, y, len, .8 + row * 1.6)}" stroke="${col}" stroke-width="${w.toFixed(2)}" opacity="${op.toFixed(2)}"/>`;
+    }
+    let glints = "";
+    for (let i = 0; i < 9; i++) {
+      const row = R(), y = WL + 8 + row * 40, x = 120 + R() * 360, len = 30 + row * 40;
+      glints += `<path class="gl" style="--d:${(7 + R() * 5).toFixed(2)}s;--dl:${(-R() * 12).toFixed(2)}s;--tx:${(60 + row * 70).toFixed(0)}px" d="${wave(x - len / 2, y, len, 1 + row * 1.4)}" stroke="#FFFFFF" stroke-width="${(.9 + row * .9).toFixed(2)}"/>`;
+    }
+    for (let i = 0; i < 26; i++) {
+      const row = R(), y = WL + 6 + row * 40, x = 300 + (R() - .5) * (260 + row * 300) * 1.4, r = 2 + row * 5;
+      crescents += `<path d="M${(x - r).toFixed(1)} ${y.toFixed(1)}q${r.toFixed(1)} ${(r * .7).toFixed(1)} ${(2 * r).toFixed(1)} 0" stroke="${R() < .5 ? "#7AABA2" : "#FFFFFF"}" stroke-width="${(.5 + row * .6).toFixed(2)}" opacity="${(.3 + R() * .35).toFixed(2)}"/>`;
+    }
+    svg.innerHTML = `
+      <defs>
+        ${swan("p")}${swan("b")}
+        <radialGradient id="pondWash" cx="300" cy="${WL + 18}" r="330" gradientTransform="translate(300 ${WL + 18}) scale(1 .16) translate(-300 ${-(WL + 18)})" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#ACCEC5" stop-opacity=".55"/><stop offset=".55" stop-color="#C8DFD9" stop-opacity=".3"/><stop offset="1" stop-color="#C8DFD9" stop-opacity="0"/></radialGradient>
+        <filter id="paint" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale=".7"/></filter>
+        <filter id="shimmer" x="-10%" y="-20%" width="120%" height="140%">
+          <feTurbulence type="fractalNoise" baseFrequency=".02 .22" numOctaves="2" seed="3" result="w"><animate attributeName="baseFrequency" dur="9s" values=".02 .22;.024 .26;.02 .22" repeatCount="indefinite"/></feTurbulence>
+          <feDisplacementMap in="SourceGraphic" in2="w" scale="5"/><feGaussianBlur stdDeviation=".7"/></filter>
+        <filter id="soft"><feGaussianBlur stdDeviation="2.4"/></filter>
+        <filter id="ripplyWater" x="-5%" y="-30%" width="110%" height="160%">
+          <feTurbulence type="fractalNoise" baseFrequency=".012 .09" numOctaves="1" seed="5" result="w"><animate attributeName="baseFrequency" dur="7s" values=".012 .09;.016 .11;.012 .09" repeatCount="indefinite"/></feTurbulence>
+          <feDisplacementMap in="SourceGraphic" in2="w" scale="3.2" xChannelSelector="R" yChannelSelector="G"/></filter>
+        <radialGradient id="edgeFade" cx="300" cy="${WL + 10}" r="330" gradientTransform="translate(300 ${WL + 10}) scale(1 .22) translate(-300 ${-(WL + 10)})" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff"/><stop offset=".8" stop-color="#fff" stop-opacity=".8"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+        <mask id="pondFade" maskUnits="userSpaceOnUse" x="0" y="${WL - 10}" width="600" height="80"><rect x="0" y="${WL - 10}" width="600" height="80" fill="url(#edgeFade)"/></mask>
+        <linearGradient id="reflFade" x1="0" y1="${WL}" x2="0" y2="${WL + 52}" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity=".6"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+        <mask id="reflMask" maskUnits="userSpaceOnUse" x="0" y="${WL}" width="600" height="70"><rect x="0" y="${WL}" width="600" height="70" fill="url(#reflFade)"/></mask>
+        <clipPath id="aboveWater"><rect x="0" y="0" width="600" height="${WL + .6}"/></clipPath>
+      </defs>
+      <rect x="0" y="${WL - 4}" width="600" height="70" fill="url(#pondWash)"/>
+      <g class="pond-refl" mask="url(#reflMask)" filter="url(#shimmer)">
+        <g transform="translate(0 ${2 * WL}) scale(1 -1)">
+          <g class="sw-pos sw-l"><g class="sw-bob"><use href="#swan-p"/></g></g>
+          <g class="sw-pos sw-r"><g class="sw-bob b2"><use href="#swan-b"/></g></g>
+        </g>
+      </g>
+      <g class="pond-strokes" fill="none" stroke-linecap="round" mask="url(#pondFade)"><g filter="url(#ripplyWater)">${layers.map((l, i) => `<g class="swell s${i}"><g class="drift l${i}">${l}</g></g>`).join("")}<g class="swell s1"><g class="drift b">${crescents}</g></g><g class="glints">${glints}</g></g></g>
+      <g class="shadows"><ellipse class="sw-sh" id="shL" cy="${WL + 1.5}" rx="62" ry="3.4" fill="#6E9D94" opacity=".22" filter="url(#soft)"/><ellipse class="sw-sh" id="shR" cy="${WL + 1.5}" rx="62" ry="3.4" fill="#6E9D94" opacity=".22" filter="url(#soft)"/></g>
+      <g clip-path="url(#aboveWater)" filter="url(#paint)">
+        <g class="sw-pos sw-l"><g class="sw-bob"><use href="#swan-p"/></g></g>
+        <g class="sw-pos sw-r"><g class="sw-bob b2"><use href="#swan-b"/></g></g>
+      </g>
+      <g class="ripples" fill="none" stroke="#FFFFFF" stroke-linecap="round">
+        <path class="rp" id="rpL"/><path class="rp b2" id="rpR"/><path class="rp c" id="rpL2"/><path class="rp b2 c" id="rpR2"/>
+      </g>
+      <path class="pond-heart" d="M300 14C296.5 9.5 289 10.5 289 16C289 20.5 294.5 24 300 27.5C305.5 24 311 20.5 311 16C311 10.5 303.5 9.5 300 14Z"/>`;
+
+    const t0 = new Date("2026-10-07T00:00:00-07:00").getTime(), t1 = target;
+    const p = clamp((Date.now() - t0) / (t1 - t0)), S = 1.34;
+    const meet = 300 - 112.5 * S, from = 8;
+    const ease = t => 1 - Math.pow(1 - t, 3);
+    const arc = (cx, w) => `M${(cx - w).toFixed(1)} ${WL + 2}q${w.toFixed(1)} 3.2 ${(2 * w).toFixed(1)} 0`;
+    const place = k => {
+      const x = from + (meet - from) * k, bl = x + 50 * S, br = 600 - x - 50 * S;
+      $$(".sw-l", svg).forEach(g => g.setAttribute("transform", `translate(${x.toFixed(2)} 1) scale(${S})`));
+      $$(".sw-r", svg).forEach(g => g.setAttribute("transform", `translate(${(600 - x).toFixed(2)} 1) scale(${-S} ${S})`));
+      $("#shL", svg).setAttribute("cx", bl.toFixed(1)); $("#shR", svg).setAttribute("cx", br.toFixed(1));
+      $("#rpL", svg).setAttribute("d", arc(bl + 6, 46)); $("#rpR", svg).setAttribute("d", arc(br - 6, 46));
+      $("#rpL2", svg).setAttribute("d", arc(bl - 4, 58)); $("#rpR2", svg).setAttribute("d", arc(br + 4, 58));
+    };
+    $("#pond").classList.toggle("met", p >= 1);
+    if (REDUCED) { place(p); return; }
+    place(0);
+    const go = () => { const st = performance.now(), D = 2800;
+      const step = now => { const k = clamp((now - st) / D); place(p * ease(k)); if (k < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step); };
+    const io = new IntersectionObserver(es => { if (es[0].isIntersecting) { io.disconnect(); setTimeout(go, 350); } }, { threshold: .4 });
+    io.observe($("#pond"));
+  })();
+  const start = new Date(target - 30 * 6e4), end = new Date(target + 4.5 * 36e5);   // 3:30 arrival to 8:30 goodnight, same as the .ics
+  const z = d => d.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+  $("#calLink").href = "https://calendar.google.com/calendar/render?action=TEMPLATE"
+    + "&text=" + encodeURIComponent(`${N1} & ${N2}'s wedding`)
+    + "&dates=" + z(start) + "/" + z(end)
+    + "&location=" + encodeURIComponent(`${CONFIG.venue.name}, ${CONFIG.venue.address}`)
+    + "&details=" + encodeURIComponent(`Ceremony at 4:00 PM. Please arrive by 3:30.\nDress code: ${CONFIG.dressCode}. Evenings dip to about 50°F, so bring a layer.\nRSVP: ${CONFIG.zola}`);
+  // the .ics file sits beside the page once the site is hosted; in a preview where it can't be served, the button explains instead of failing
+  const ics = $("#icsLink");
+  fetch(ics.getAttribute("href"), { method: "HEAD" }).then(r => { if (!r.ok) throw 0; }).catch(() => {
+    ics.addEventListener("click", e => {
+      e.preventDefault();
+      let n = $(".cal-msg"); if (!n) { n = document.createElement("p"); n.className = "cal-msg"; ics.parentElement.after(n); }
+      n.textContent = "The calendar file will be available once the site is live.";
+    });
+  });
+})();
+
+</script>
+</body>
+</html>

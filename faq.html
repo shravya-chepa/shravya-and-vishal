@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FAQ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..600;1,400..600&family=Jost:wght@300;400;500;600&family=Pinyon+Script&display=swap">
+<link rel="stylesheet" href="site.css">
+<script>try{history.scrollRestoration="manual"}catch(e){}try{if(sessionStorage.getItem("vt")){document.documentElement.classList.add("vt-in");sessionStorage.removeItem("vt")}}catch(e){}</script>
+</head>
+<body data-page="faq.html" class="page-faq">
+<div class="veil" aria-hidden="true"></div>
+<main>
+<!-- ================= FAQ ================= -->
+<section id="faq" class="page faq">
+  <div class="marq" id="marq" aria-hidden="true"></div>
+  <div class="wrap">
+    <header class="page-head reveal">
+        <span class="eyebrow">FAQ</span>
+        <h1>Questions, answered</h1>
+        <p class="lede">The things guests usually ask. Tap a question to open it.</p>
+      </header>
+    <div class="faq-panel" id="faqList"></div>
+  </div>
+</section>
+
+</main>
+<div id="nextSlot"></div>
+<script src="site.js"></script>
+<script>
+/* ---------------- FAQ ---------------- */
+(function faq() {
+  const rows = [
+    ["Hyderabad", ["Charminar", "Irani chai", "Osmania biscuits", "Dum biryani", "Pearls of Laad Bazaar", "Hussain Sagar", "Golconda at dusk"], "c1", 80, ""],
+    ["Chennai", ["Marina Beach", "Filter coffee", "Jasmine strings", "Kolam at dawn", "Kapaleeshwarar", "Carnatic evenings", "Idli and podi"], "c2", 95, "r"],
+    ["Laguna", ["Heisler Park", "Tide pools", "Main Beach", "Golden hour", "Crystal Cove", "Victoria Beach", "Sawdust"], "c3", 85, ""]
+  ];
+  $("#marq").innerHTML = rows.map(([lab, items, c, d, dir]) => {
+    const seq = `<span class="mlab">${lab}</span>` + items.map(i => `<span>${esc(i)}</span>`).join("");
+    return `<div class="mrow ${c} ${dir}" style="--d:${d}s">${seq}${seq}</div>`;
+  }).join("");
+  const QA = [
+    ["When and where is the wedding?", `Friday, December 18, 2026, at ${CONFIG.venue.name}, ${CONFIG.venue.address}. The ceremony starts at ${CONFIG.ceremonyLabel}, so please arrive about 30 minutes early.`],
+    ["What should I wear?", `${CONFIG.dressCode}, whichever feels most like you. ${CONFIG.dressNote}`],
+    ["Can I bring a plus-one?", "Of course. Just send us a quick text to let us know, so we can save them a seat at dinner."],
+    ["How do I RSVP?", `Use the RSVP button on this site, which opens our Zola page. Please reply by ${CONFIG.rsvpBy}.`],
+    ["Which airport should I fly into?", "John Wayne Airport (SNA) in Santa Ana is the closest. Long Beach (LGB) and LAX are also options with a longer drive, so plan around traffic."],
+    ["Where should I stay?", "Laguna has hotels along Coast Highway, and Dana Point, Newport Beach and Irvine have more choices nearby. December is a quieter season, but it's still worth booking early."],
+    ["Is there parking at the venue?", "Yes. The venue has 18 spots across its front and back lots, and there's plenty of street parking on the surrounding blocks."],
+    ["What will the weather be like?", "Usually mild and clear, with days in the 60s°F. Once the sun sets around 4:47 PM it cools down quickly, so bring a layer."],
+    ["Do you have a registry?", "We don't. Having you there is the only gift we need."]
+  ];
+  $("#faqList").innerHTML = QA.map(([q, a], i) => `<div class="acc"><button id="q${i}" aria-expanded="false" aria-controls="a${i}"><span>${esc(q)}</span><span class="pm" aria-hidden="true"></span></button><div class="ans" id="a${i}" role="region" aria-labelledby="q${i}"><div><p>${esc(a)}</p></div></div></div>`).join("");
+  $$("#faqList .acc button").forEach(btn => btn.addEventListener("click", () => {
+    const acc = btn.parentElement, open = !acc.classList.contains("open");
+    acc.classList.toggle("open", open); btn.setAttribute("aria-expanded", open);
+  }));
+})();
+
+</script>
+</body>
+</html>

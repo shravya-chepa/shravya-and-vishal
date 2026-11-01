@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Things to Do</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..600;1,400..600&family=Jost:wght@300;400;500;600&family=Pinyon+Script&display=swap">
+<link rel="stylesheet" href="site.css">
+<script>try{history.scrollRestoration="manual"}catch(e){}try{if(sessionStorage.getItem("vt")){document.documentElement.classList.add("vt-in");sessionStorage.removeItem("vt")}}catch(e){}</script>
+</head>
+<body data-page="things-to-do.html" class="page-todo">
+<div class="veil" aria-hidden="true"></div>
+<main>
+<!-- ================= THINGS TO DO ================= -->
+<section id="todo" class="page todo">
+  <div class="wrap">
+    <header class="page-head reveal">
+        <span class="eyebrow">Things to Do</span>
+        <h1>Make a weekend of it</h1>
+        <p class="lede">Laguna in mid-December is mild, quiet and very walkable. A few favorites for the days around the wedding.</p>
+      </header>
+    <section class="td-feat" aria-labelledby="tdFeatH">
+      <div class="sub-head reveal"><span class="eyebrow">Don't miss</span><h3 id="tdFeatH">Three Laguna moments</h3></div>
+      <div class="feat-grid" id="featGrid"></div>
+    </section>
+    <section class="td-more" aria-labelledby="tdMoreH">
+      <div class="sub-head reveal"><span class="eyebrow">More to explore</span><h3 id="tdMoreH">Beaches, art and quiet trails</h3></div>
+      <div class="filters" id="filters" role="group" aria-label="Filter by type"></div>
+      <div class="td-grid" id="todos"></div>
+      <p class="todo-note">Drive times are approximate from the venue. Hours and seasonal dates change, so check before you go.</p>
+    </section>
+  </div>
+</section>
+</main>
+<div id="nextSlot"></div>
+<script src="site.js"></script>
+<script>
+/* ---------------- Things to do ---------------- */
+(function todo() {
+  const q = s => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(s);
+  // f: featured with a painting · t: the hook · d: distance from the venue · b: best time
+  const items = [
+    { f: "waves", k: "Outdoors", n: "Heisler Park & the tide pools", t: "Sea stars, anemones and little crabs at your feet.", p: "Clifftop gardens and benches above the water, with stairs down to rocky coves. Winter low tides often fall in the afternoon, so check a tide chart before you head down.", d: "About 5 min from the venue", b: "Best at low tide", m: "Heisler Park Laguna Beach" },
+    { f: "sunset", k: "Outdoors", n: "Treasure Island Park", t: "The prettiest sunset walk in town.", p: "A bluff-top path above a sheltered cove, with benches facing the Pacific. Arrive a little before sunset and stay for the afterglow.", d: "About 8 min from the venue", b: "Before the 4:47 PM sunset", m: "Treasure Island Park Laguna Beach" },
+    { f: "coast", k: "Outdoors", n: "Crystal Cove State Park", t: "Historic cottages, a wide beach and a famous date shake.", p: "Wander the 1930s beach cottages, walk the shoreline, then grab a shake at the stand above the cove. Easily a lovely half day.", d: "About 10 min north", b: "Half day", m: "Crystal Cove State Park" },
+    { k: "Beach", n: "Main Beach", t: "The town's front porch.", p: "Boardwalk, volleyball courts and the lifeguard tower, right where downtown meets the sand. Easy to pair with a coffee.", d: "About 3 min from the venue", b: "Morning walk", m: "Main Beach Laguna Beach" },
+    { k: "Beach", n: "Victoria Beach", t: "A storybook stone tower built into the cliff.", p: "A quiet stretch of sand with one of Laguna's most photographed landmarks. Go near low tide to reach the tower.", d: "About 5 min south", b: "Near low tide", m: "Victoria Beach Laguna Beach" },
+    { k: "Beach", n: "Thousand Steps Beach", t: "A hidden cove at the bottom of a long staircase.", p: "Soft sand, tide pools and far fewer people. Worth every step of the climb back up.", d: "About 10 min south", b: "Morning", m: "Thousand Steps Beach Laguna Beach" },
+    { k: "Art", n: "Laguna Art Museum", t: "California art, steps from the ocean.", p: "A small, beautifully kept museum on Cliff Drive. An easy hour before lunch downtown.", d: "About 5 min from the venue", b: "Check hours", m: "Laguna Art Museum" },
+    { k: "Art", n: "Gallery Row", t: "Dozens of galleries along North Coast Highway.", p: "Wander in and out of painting, ceramics and jewellery studios on the way to dinner.", d: "About 5 min from the venue", b: "Afternoon", m: "North Coast Highway galleries Laguna Beach" },
+    { k: "Seasonal", n: "Sawdust Winter Fantasy", t: "Twinkling lights and handmade gifts among the eucalyptus.", p: "The holiday edition of the Sawdust Art Festival, with local artists, live music and Santa. It usually runs on weekends into late December; confirm the 2026 dates.", d: "About 5 min, in Laguna Canyon", b: "Daytime", m: "Sawdust Art Festival 935 Laguna Canyon Road" },
+    { k: "Seasonal", n: "Whale watching from Dana Point", t: "Gray whales begin their journey south in December.", p: "Morning boats leave from Dana Point Harbor; dolphins often come along for the ride.", d: "About 20 min south", b: "Morning trip", m: "Dana Point Harbor whale watching" },
+    { k: "Outdoors", n: "Laguna Coast Wilderness Park", t: "Canyon trails with ocean views.", p: "Rolling hills, oak groves and quiet paths, especially lovely once the morning haze lifts.", d: "About 10 min, in Laguna Canyon", b: "Morning hike", m: "Laguna Coast Wilderness Park" },
+    { k: "Outdoors", n: "Pacific Marine Mammal Center", t: "Meet the seals and sea lions in recovery.", p: "A small rescue centre with a visitor area where you can learn their stories. Donations are welcome.", d: "About 8 min, in Laguna Canyon", b: "Check hours", m: "Pacific Marine Mammal Center" }
+  ];
+  const pin = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 14.5s-4.5-4.2-4.5-7.6A4.5 4.5 0 0 1 12.5 6.9c0 3.4-4.5 7.6-4.5 7.6z"/><circle cx="8" cy="6.9" r="1.5"/></svg>';
+  const clock = '<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M8 4.6V8l2.3 1.5"/></svg>';
+  const meta = i => `<p class="td-meta"><span>${pin}${esc(i.d)}</span><span>${clock}${esc(i.b)}</span></p>`;
+  const go = i => `<a class="td-go" href="${q(i.m)}" target="_blank" rel="noopener">Get directions <i>→</i></a>`;
+  const feat = items.filter(i => i.f), more = items.filter(i => !i.f);
+  $("#featGrid").innerHTML = feat.map((i, n) => `
+    <article class="feat reveal" style="transition-delay:${n * .08}s">
+      <div class="feat-art" data-art="${i.f}"></div>
+      <div class="feat-body"><span class="td-no">No. ${String(n + 1).padStart(2, "0")}</span><h4>${esc(i.n)}</h4><p class="td-hook">${esc(i.t)}</p><p class="td-p">${esc(i.p)}</p>${meta(i)}${go(i)}</div>
+    </article>`).join("");
+  $$(".feat-art", $("#featGrid")).forEach((el, n) => { const cv = paint({ art: el.dataset.art, t: feat[n].n, ar: 1.5, seed: 7 + n * 13 }, 720); el.appendChild(cv); });
+  const kinds = ["All", ...new Set(more.map(i => i.k))];
+  const fl = $("#filters"), grid = $("#todos");
+  fl.innerHTML = kinds.map((k, i) => `<button class="chip" aria-pressed="${i === 0}">${k}</button>`).join("");
+  function render(k) {
+    grid.innerHTML = more.filter(i => k === "All" || i.k === k).map((i, n) => `
+      <article class="td-card" style="--d:${n * .05}s"><span class="td-kind">${esc(i.k)}</span><h4>${esc(i.n)}</h4><p class="td-hook">${esc(i.t)}</p><p class="td-p">${esc(i.p)}</p>${meta(i)}${go(i)}</article>`).join("");
+  }
+  render("All");
+  $$("button", fl).forEach(b => b.addEventListener("click", () => { $$("button", fl).forEach(x => x.setAttribute("aria-pressed", x === b)); render(b.textContent); }));
+})();
+</script>
+</body>
+</html>

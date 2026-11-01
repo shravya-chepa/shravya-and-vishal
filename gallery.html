@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gallery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..600;1,400..600&family=Jost:wght@300;400;500;600&family=Pinyon+Script&display=swap">
+<link rel="stylesheet" href="site.css">
+<script>try{history.scrollRestoration="manual"}catch(e){}try{if(sessionStorage.getItem("vt")){document.documentElement.classList.add("vt-in");sessionStorage.removeItem("vt")}}catch(e){}</script>
+</head>
+<body data-page="gallery.html" class="page-gallery">
+<div class="veil" aria-hidden="true"></div>
+<main>
+<!-- ================= GALLERY ================= -->
+<section id="gallery" class="page gallery">
+  <div class="wrap">
+      <header class="page-head reveal">
+        <span class="eyebrow">Gallery</span>
+        <h1>The Gallery of Us</h1>
+        <p class="lede">A small museum with our favorite pictures on the walls. Step inside and walk around: drag to look, tap the floor to walk, tap a frame to stand in front of it.</p>
+      </header>
+    <div class="gal-stage">
+      <div class="doorway reveal" id="doorway"><div class="door-wall" id="doorWall"></div></div>
+      <button class="btn solid" id="enterGallery">Step inside</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Museum overlay -->
+<div class="museum" id="museum" role="dialog" aria-modal="true" aria-label="The Gallery of Us">
+  <canvas id="museumCanvas"></canvas>
+  <div class="m-loading" id="mLoading">Hanging the pictures…</div>
+  <div class="m-top">
+    <div class="m-title"><b>The Gallery of Us</b><span>Drag to look · tap the floor to walk · tap a frame to visit it · WASD or arrows</span></div>
+    <button class="m-btn m-exit" id="leaveGallery" aria-label="Step outside the gallery"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 3l6 6M9 3l-6 6"/></svg>Step outside</button>
+  </div>
+  <div class="m-bottom">
+    <div class="m-cap hide" id="mCap"><small id="mCapMeta"></small><b id="mCapTitle"></b><p id="mCapNote"></p></div>
+    <div class="m-nav">
+      <button class="m-btn ghost" id="mPrev" aria-label="Previous picture">‹ Prev</button>
+      <button class="m-btn ghost" id="mLook">Look closer</button>
+      <button class="m-btn ghost" id="mNext" aria-label="Next picture">Next ›</button>
+    </div>
+  </div>
+</div>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Picture">
+  <figure><canvas id="lbCanvas"></canvas><figcaption><b id="lbTitle"></b><span id="lbNote"></span></figcaption></figure>
+</div>
+
+<div id="nextSlot"></div>
+<script src="site.js"></script>
+<script>
+/* ---------------- gallery doorway preview ---------------- */
+(function preview() {
+  const wall = $("#doorWall");
+  // a salon-style hang: all eight photographs at different sizes, scattered across the wall, each frame in its photo's shape
+  const WALL = 1.1;   // the wall is a little taller than wide, so a frame's height follows from its width and the photo's shape
+  const hang = [[0, 8, 31, 28], [1, 31, 16, 16], [2, 54, 20, 14], [3, 73, 27, 13], [4, 39, 35, 13], [5, 56, 45, 17], [6, 13, 54, 20], [7, 76, 50, 15]];
+  const picks = hang.map(([i, x, y, w]) => [i, x, y, w, w / (WALL * WORKS[i].ar), ""]);
+  wall.innerHTML = picks.map(([i, x, y, w, h, col]) => `<span class="glow" style="left:${x + w / 2 - 20}%;top:${y - 10}%"></span><span class="fr" data-i="${i}" role="button" tabindex="0" aria-label="${esc(WORKS[i].t)}" style="left:${x.toFixed(2)}%;top:${y}%;width:${w.toFixed(2)}%;height:${h}%"></span>`).join("")
+;
+  $$(".fr", wall).forEach(fr => {
+    // the photo itself, at full resolution, so the preview stays crisp
+    const w = WORKS[+fr.dataset.i], im = new Image(); im.src = w.src; im.alt = ""; im.decoding = "async"; im.className = "photo"; fr.appendChild(im);
+    const go = e => openMuseum(e, +fr.dataset.i);
+    fr.addEventListener("click", go); fr.addEventListener("keydown", e => { if (e.key === "Enter") go(e); });
+  });
+  $("#enterGallery").addEventListener("click", e => openMuseum(e));
+})();
+/* ---------------- museum (Three.js, loaded on demand) ---------------- */
+let M = null;
+function loadThree() {
+  return new Promise((res, rej) => {
+    if (window.THREE) return res();
+    const s = document.createElement("script");
+    s.src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
+    s.onload = res; s.onerror = rej; document.head.appendChild(s);
+  });
+}
+async function openMuseum(e, focusIdx) {
+  const mus = $("#museum");
+  const b = e && e.currentTarget && e.currentTarget.getBoundingClientRect ? e.currentTarget.getBoundingClientRect() : { left: innerWidth / 2, top: innerHeight / 2, width: 0, height: 0 };
+  mus.style.setProperty("--ox", (b.left + b.width / 2) + "px"); mus.style.setProperty("--oy", (b.top + b.height / 2) + "px");
+  mus.classList.add("open"); document.body.classList.add("locked");
+  // walking in is a place of its own: the browser's back button walks you out again
+  try { if (!(history.state && history.state.museum)) history.pushState({ museum: 1 }, ""); } catch (_) {}
+  try {
+    await loadThree(); await photosReady;
+    if (document.fonts && document.fonts.ready) await document.fonts.ready;
+    if (!M) M = buildMuseum();
+    $("#mLoading").style.opacity = 0;
+    M.start(focusIdx);
+  } catch (err) {
+    $("#mLoading").textContent = "The 3D gallery couldn't load. Check your connection and try again.";
+  }
+}
+function closeMuseum() {
+  $("#museum").classList.remove("open"); document.body.classList.remove("locked");
+  if (M) M.stop();
+  $("#lightbox").classList.remove("open");
+}
+// leaving by the button (or Escape) also steps the history back, so Back never re-opens a closed gallery
+const leave = () => { closeMuseum(); try { if (history.state && history.state.museum) history.back(); } catch (_) {} };
+$("#leaveGallery").addEventListener("click", leave);
+addEventListener("popstate", () => { if ($("#museum").classList.contains("open")) closeMuseum(); });
+addEventListener("keydown", e => {
+  if (e.key !== "Escape") return;
+  if ($("#lightbox").classList.contains("open")) $("#lightbox").classList.remove("open");
+  else if ($("#museum").classList.contains("open")) leave();
+});
+function showLightbox(i) {
+  const w = WORKS[i], cv = paint(w, 1400), lb = $("#lbCanvas");
+  lb.width = cv.width; lb.height = cv.height; lb.getContext("2d").drawImage(cv, 0, 0);
+  $("#lbTitle").textContent = w.t; $("#lbNote").textContent = [w.m, w.n].filter(Boolean).join(" · ");
+  lb.classList.toggle("photo", !!w.src);
+  $("#lightbox").classList.add("open");
+}
+$("#lightbox").addEventListener("click", () => $("#lightbox").classList.remove("open"));
+
+function buildMuseum() {
+  const T = THREE, canvas = $("#museumCanvas");
+  const renderer = new T.WebGLRenderer({ canvas, antialias: true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  const scene = new T.Scene();
+  scene.background = new T.Color("#F4EEE3"); scene.fog = new T.Fog("#F4EEE3", 18, 40);
+  const camera = new T.PerspectiveCamera(62, 1, .15, 60); camera.rotation.order = "YXZ";
+  const RW = 12, RL = 28, RH = 5;
+  const GOLD = "#BE9C64", IVORY = "#FBF7EE";
+
+  scene.add(new T.HemisphereLight("#FFF9F0", "#E6D8C6", .92));
+  const dl = new T.DirectionalLight("#FFF4E2", .32); dl.position.set(2, 6, 4); scene.add(dl);
+  const tex = (w, h, draw, rx, ry) => { const c = document.createElement("canvas"); c.width = w; c.height = h; draw(c.getContext("2d"), w, h);
+    const t = new T.CanvasTexture(c); t.wrapS = t.wrapT = T.RepeatWrapping; t.repeat.set(rx, ry); t.anisotropy = renderer.capabilities.getMaxAnisotropy(); return t; };
+  const fr = rng(11);
+
+  // floor: pale oak, long narrow boards with a soft grain
+  const ftex = tex(512, 1024, (x, w, h) => {
+    x.fillStyle = "#DDCBB2"; x.fillRect(0, 0, w, h);
+    for (let i = 0; i < 8; i++) { const off = fr() * h;
+      for (const y0 of [off - h, off]) { x.fillStyle = `rgba(${165 + fr() * 25},${138 + fr() * 20},${108 + fr() * 18},${.12 + fr() * .12})`; x.fillRect(i * 64, y0, 64, h * .62); }
+      x.fillStyle = "rgba(110,78,52,.22)"; x.fillRect(i * 64, 0, 1.5, h); x.fillRect(i * 64, off, 64, 1.5); }
+    for (let i = 0; i < 900; i++) { x.fillStyle = `rgba(120,84,58,${.03 + fr() * .05})`; x.fillRect(fr() * w, fr() * h, 1, 30 + fr() * 90); }
+  }, 3, 4);
+  const floor = new T.Mesh(new T.PlaneGeometry(RW, RL), new T.MeshLambertMaterial({ map: ftex }));
+  floor.rotation.x = -Math.PI / 2; scene.add(floor);
+  // a long burgundy runner with a fine gold border
+  const rugTex = tex(256, 1024, (x, w, h) => {
+    x.fillStyle = "#5A1D27"; x.fillRect(0, 0, w, h);
+    x.fillStyle = "#64232E"; x.fillRect(22, 22, w - 44, h - 44);
+    x.strokeStyle = "#C2A06A"; x.lineWidth = 3; x.strokeRect(14, 14, w - 28, h - 28); x.lineWidth = 1.5; x.strokeRect(30, 30, w - 60, h - 60);
+    for (let i = 0; i < 2600; i++) { x.fillStyle = `rgba(${fr() < .5 ? "255,220,210" : "40,8,14"},${.03 + fr() * .04})`; x.fillRect(fr() * w, fr() * h, 1.5, 1.5); }
+  }, 1, 1);
+  const rug = new T.Mesh(new T.PlaneGeometry(2.6, RL - 7), new T.MeshLambertMaterial({ map: rugTex }));
+  rug.rotation.x = -Math.PI / 2; rug.position.y = .015; scene.add(rug);
+  // ceiling, with a long skylight edged in gold
+  const ceil = new T.Mesh(new T.PlaneGeometry(RW, RL), new T.MeshLambertMaterial({ color: "#FBF8F1" })); ceil.rotation.x = Math.PI / 2; ceil.position.y = RH; scene.add(ceil);
+  const skyEdge = new T.Mesh(new T.PlaneGeometry(2.9, RL - 5.7), new T.MeshBasicMaterial({ color: "#E6D3AE" })); skyEdge.rotation.x = Math.PI / 2; skyEdge.position.y = RH - .015; scene.add(skyEdge);
+  const sky = new T.Mesh(new T.PlaneGeometry(2.6, RL - 6), new T.MeshBasicMaterial({ color: "#FFFDF8" })); sky.rotation.x = Math.PI / 2; sky.position.y = RH - .03; scene.add(sky);
+  // walls: warm gallery white above, panelled sea-green wainscot below, a gilded dado rail, ivory skirting and cornice
+  const wallMat = new T.MeshLambertMaterial({ color: "#F6F0E5" }), trimMat = new T.MeshPhongMaterial({ color: GOLD, specular: "#FFF0CC", shininess: 38 }), ivoryMat = new T.MeshLambertMaterial({ color: IVORY });
+  const panelTex = len => tex(512, 256, (x, w, h) => {
+    x.fillStyle = "#C3D7D0"; x.fillRect(0, 0, w, h);
+    x.strokeStyle = "rgba(255,255,255,.55)"; x.lineWidth = 3; x.strokeRect(36, 34, w - 72, h - 68);
+    x.strokeStyle = "rgba(56,107,101,.28)"; x.lineWidth = 2; x.strokeRect(40, 38, w - 80, h - 76);
+  }, len / 2.4, 1);
+  function wall(len, x, z, ry) {
+    const g = new T.Group(); g.position.set(x, 0, z); g.rotation.y = ry;
+    const up = new T.Mesh(new T.PlaneGeometry(len, RH), wallMat); up.position.y = RH / 2; g.add(up);
+    const lo = new T.Mesh(new T.PlaneGeometry(len, 1.05), new T.MeshLambertMaterial({ map: panelTex(len) })); lo.position.set(0, .525, .012); g.add(lo);
+    const rail = new T.Mesh(new T.BoxGeometry(len, .05, .05), trimMat); rail.position.set(0, 1.07, .025); g.add(rail);
+    const skirt = new T.Mesh(new T.BoxGeometry(len, .14, .04), ivoryMat); skirt.position.set(0, .07, .02); g.add(skirt);
+    const corn = new T.Mesh(new T.BoxGeometry(len, .16, .08), ivoryMat); corn.position.set(0, RH - .08, .04); g.add(corn);
+    const cornLine = new T.Mesh(new T.BoxGeometry(len, .02, .02), trimMat); cornLine.position.set(0, RH - .17, .07); g.add(cornLine);
+    scene.add(g);
+  }
+  wall(RL, -RW / 2, 0, Math.PI / 2); wall(RL, RW / 2, 0, -Math.PI / 2); wall(RW, 0, -RL / 2, 0); wall(RW, 0, RL / 2, Math.PI);
+  // benches: blush velvet on slim brass legs
+  const cush = new T.MeshLambertMaterial({ color: "#E5BBB1" }), brass = new T.MeshPhongMaterial({ color: GOLD, specular: "#FFF0CC", shininess: 50 });
+  for (const z of [-4, 4]) {
+    const b = new T.Group(); b.position.set(0, 0, z);
+    const top = new T.Mesh(new T.BoxGeometry(.72, .16, 2.4), cush); top.position.y = .47; b.add(top);
+    const piping = new T.Mesh(new T.BoxGeometry(.74, .02, 2.42), brass); piping.position.y = .39; b.add(piping);
+    for (const dx of [-.3, .3]) for (const dz of [-1.08, 1.08]) { const l = new T.Mesh(new T.CylinderGeometry(.022, .016, .38, 10), brass); l.position.set(dx, .19, dz); b.add(l); }
+    scene.add(b);
+  }
+  const leg = brass;
+  // glow texture
+  const gc = document.createElement("canvas"); gc.width = gc.height = 256; const gx = gc.getContext("2d");
+  const gg = gx.createRadialGradient(128, 110, 4, 128, 128, 128); gg.addColorStop(0, "rgba(255,248,230,.95)"); gg.addColorStop(.5, "rgba(255,240,215,.35)"); gg.addColorStop(1, "rgba(255,240,215,0)");
+  gx.fillStyle = gg; gx.fillRect(0, 0, 256, 256);
+  const glowTex = new T.CanvasTexture(gc);
+
+  // place works
+  // the tour walks once around the room: the far wall, down the left wall, the near wall, then back up the right wall,
+  // so Next and Prev always move to the neighbouring picture
+  const left = [-7.5, -1, 5.5], right = [-7.5, -1, 5.5];   // three photos on each long wall, one on each end wall
+  let wi = 1;
+  // walking once around the room: photo 1 on the far wall, 2–4 down the left wall, 5 on the near wall, 6–8 back up the right
+  const L = left.map((z, k) => ({ i: 1 + k, pos: new T.Vector3(-RW / 2, 2.15, z), n: new T.Vector3(1, 0, 0) }));
+  const Rt = [...right].reverse().map((z, k) => ({ i: 5 + k, pos: new T.Vector3(RW / 2, 2.15, z), n: new T.Vector3(-1, 0, 0) }));
+  const placements = [
+    { i: 0, pos: new T.Vector3(0, 2.3, -RL / 2), n: new T.Vector3(0, 0, 1), big: true },
+    ...L,
+    { i: 4, pos: new T.Vector3(0, 2.3, RL / 2), n: new T.Vector3(0, 0, -1), big: true },
+    ...Rt
+  ];
+  // dark walnut frames: a fine wood grain under a soft satin finish
+  const woodTex = tex(256, 256, (x, w, h) => {
+    x.fillStyle = "#4A2F22"; x.fillRect(0, 0, w, h);
+    for (let i = 0; i < 70; i++) { const y = fr() * h; x.fillStyle = `rgba(${fr() < .5 ? "28,16,11" : "112,76,54"},${.18 + fr() * .25})`; x.fillRect(0, y, w, .6 + fr() * 2.2); }
+    for (let i = 0; i < 500; i++) { x.fillStyle = `rgba(20,12,8,${.06 + fr() * .08})`; x.fillRect(fr() * w, fr() * h, 6 + fr() * 30, 1); }
+  }, 2, 2);
+  const frameMat = new T.MeshPhongMaterial({ map: woodTex, color: "#FFFFFF", specular: "#5A4436", shininess: 26 }), lipMat = new T.MeshPhongMaterial({ color: "#2E1D15", specular: "#3A2A20", shininess: 18 });
+  const clickables = [], tour = [];
+  placements.forEach((pl, k) => {
+    const w = WORKS[pl.i]; const g = new T.Group();
+    g.position.copy(pl.pos); g.rotation.y = Math.atan2(pl.n.x, pl.n.z);
+    const pw = pl.big ? Math.min(4.2, 3.1 * w.ar) : (w.ar >= 1 ? 2.1 : 1.6), ph = pw / w.ar;   // big pieces never taller than the wall allows
+    const tex = new T.CanvasTexture(paint(w, 1024)); tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    const glow = new T.Mesh(new T.PlaneGeometry(pw * 2.2, pw * 2.2), new T.MeshBasicMaterial({ map: glowTex, transparent: true, depthWrite: false, opacity: .8 }));
+    glow.position.set(0, ph * .3, .062); g.add(glow);
+    // every frame alike: a slim gilded moulding with a darker inner lip, a wide ivory mat, and a brass picture light
+    const M = pl.big ? .34 : .22, FW = .085;
+    const frame = new T.Mesh(new T.BoxGeometry(pw + 2 * M + 2 * FW, ph + 2 * M + 2 * FW, .07), frameMat); frame.position.z = .035; g.add(frame);
+    const lip = new T.Mesh(new T.BoxGeometry(pw + 2 * M + .03, ph + 2 * M + .03, .074), lipMat); lip.position.z = .036; g.add(lip);
+    const mat = new T.Mesh(new T.PlaneGeometry(pw + 2 * M, ph + 2 * M), new T.MeshBasicMaterial({ color: IVORY })); mat.position.z = .082; g.add(mat);
+    const bevel = new T.Mesh(new T.PlaneGeometry(pw + .03, ph + .03), new T.MeshBasicMaterial({ color: "#EDE4D3" })); bevel.position.z = .092; g.add(bevel);
+    const pic = new T.Mesh(new T.PlaneGeometry(pw, ph), new T.MeshBasicMaterial({ map: tex })); pic.position.z = .102; pic.userData.tour = tour.length; g.add(pic);
+    const top = ph / 2 + M + FW;
+    const arm = new T.Mesh(new T.CylinderGeometry(.012, .012, .22, 8), brass); arm.rotation.x = Math.PI / 2; arm.position.set(0, top + .2, .11); g.add(arm);
+    const lamp = new T.Mesh(new T.CylinderGeometry(.045, .055, Math.min(.9, pw * .45), 16), brass); lamp.rotation.z = Math.PI / 2; lamp.position.set(0, top + .2, .22); g.add(lamp);
+    // placard
+    const pc = document.createElement("canvas"); pc.width = 512; pc.height = 256; const px = pc.getContext("2d");
+    px.fillStyle = "#FFFBF2"; px.fillRect(0, 0, 512, 256); px.fillStyle = "#24393B";
+    px.font = 'italic 500 46px "EB Garamond", Georgia, serif'; px.fillText(w.t.length > 18 ? w.t.slice(0, 18) + "…" : w.t, 28, 86);
+    px.font = '400 26px "Jost", system-ui, sans-serif'; px.fillStyle = "#55696B"; px.fillText(w.m, 28, 140);
+    px.fillStyle = "#8B2C3A"; px.fillRect(28, 176, 40, 1.5);
+    const plq = new T.Mesh(new T.PlaneGeometry(.6, .3), new T.MeshBasicMaterial({ map: new T.CanvasTexture(pc) }));
+    plq.position.set(pw / 2 + M + FW + .44, 0, .03); g.add(plq);   // beside the frame, centred on the photo
+    scene.add(g);
+    clickables.push(pic);
+    tour.push({ i: pl.i, center: pl.pos.clone(), n: pl.n.clone(), dist: pl.big ? 5.6 : 3.4 });
+  });
+  clickables.push(floor);
+
+  // state
+  const S = { pos: new T.Vector3(0, 1.6, RL / 2 - 1), yaw: 0, pitch: 0, target: null, tyaw: null, cur: -1, running: false, keys: {} };
+  const clock = new T.Clock(), ray = new T.Raycaster(), ndc = new T.Vector2();
+  const bound = p => { p.x = clamp(p.x, -RW / 2 + .8, RW / 2 - .8); p.z = clamp(p.z, -RL / 2 + .9, RL / 2 - .9); return p; };
+  function size() { const w = innerWidth, h = innerHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.fov = w < 700 ? 72 : 62; camera.updateProjectionMatrix(); }
+  addEventListener("resize", () => { if (S.running) size(); });
+  function focus(k) {
+    k = (k + tour.length) % tour.length; S.cur = k; const t = tour[k];
+    S.target = bound(t.center.clone().add(t.n.clone().multiplyScalar(t.dist)).setY(1.6));
+    S.tyaw = Math.atan2(t.n.x, t.n.z); S.tpitch = t.dist > 4 ? .1 : .14;
+    const w = WORKS[t.i];
+    $("#mCapMeta").textContent = w.m; $("#mCapTitle").textContent = w.t; $("#mCapNote").textContent = w.n; $("#mCap").classList.remove("hide");
+  }
+  const angDiff = (a, b) => { let d = b - a; while (d > Math.PI) d -= Math.PI * 2; while (d < -Math.PI) d += Math.PI * 2; return d; };
+  function pick(cx, cy) {
+    const b = canvas.getBoundingClientRect(); ndc.set((cx - b.left) / b.width * 2 - 1, -(cy - b.top) / b.height * 2 + 1);
+    ray.setFromCamera(ndc, camera); return ray.intersectObjects(clickables)[0];
+  }
+  // pointer
+  let down = null;
+  canvas.addEventListener("pointerdown", e => { down = { x: e.clientX, y: e.clientY, yaw: S.yaw, pitch: S.pitch, moved: false }; canvas.setPointerCapture(e.pointerId); });
+  canvas.addEventListener("pointermove", e => {
+    if (down) {
+      const dx = e.clientX - down.x, dy = e.clientY - down.y;
+      if (Math.hypot(dx, dy) > 6) { down.moved = true; canvas.classList.add("drag"); S.tyaw = null; S.tpitch = null; }
+      if (down.moved) { S.yaw = down.yaw + dx * .005; S.pitch = clamp(down.pitch + dy * .004, -.7, .7); }
+    } else if (e.pointerType === "mouse") {
+      const h = pick(e.clientX, e.clientY); canvas.classList.toggle("point", !!(h && h.object !== floor));
+    }
+  });
+  canvas.addEventListener("pointerup", e => {
+    canvas.classList.remove("drag");
+    if (down && !down.moved) {
+      const h = pick(e.clientX, e.clientY);
+      if (h && h.object.userData.tour != null) focus(h.object.userData.tour);
+      else if (h && h.object === floor) { S.target = bound(new T.Vector3(h.point.x, 1.6, h.point.z)); S.tyaw = null; S.tpitch = null; $("#mCap").classList.add("hide"); }
+    }
+    down = null;
+  });
+  addEventListener("keydown", e => { if (S.running) { S.keys[e.key.toLowerCase()] = true; if (["arrowup", "arrowdown", "arrowleft", "arrowright", " "].includes(e.key.toLowerCase())) e.preventDefault(); } });
+  addEventListener("keyup", e => { S.keys[e.key.toLowerCase()] = false; });
+  $("#mPrev").addEventListener("click", () => focus(S.cur - 1));
+  $("#mNext").addEventListener("click", () => focus(S.cur + 1));
+  $("#mLook").addEventListener("click", () => { if (S.cur < 0) focus(0); showLightbox(tour[S.cur].i); });
+
+  let bob = 0;
+  function loop() {
+    if (!S.running) return;
+    const dt = Math.min(clock.getDelta(), .05), K = S.keys;
+    const fwd = (K.w || K.arrowup ? 1 : 0) - (K.s || K.arrowdown ? 1 : 0);
+    const str = (K.d ? 1 : 0) - (K.a ? 1 : 0);
+    const turn = (K.arrowleft ? 1 : 0) - (K.arrowright ? 1 : 0) + (K.q ? 1 : 0) - (K.e ? 1 : 0);
+    let moving = false;
+    if (fwd || str || turn) {
+      S.target = null; S.tyaw = null; S.tpitch = null; moving = !!(fwd || str);
+      S.yaw += turn * dt * 1.8;
+      const f = new T.Vector3(-Math.sin(S.yaw), 0, -Math.cos(S.yaw)), r = new T.Vector3(Math.cos(S.yaw), 0, -Math.sin(S.yaw));
+      S.pos.addScaledVector(f, fwd * dt * 3.4).addScaledVector(r, str * dt * 3); bound(S.pos);
+    }
+    if (S.target) {
+      const k = 1 - Math.exp(-dt * 2.6); S.pos.lerp(S.target, k); moving = S.pos.distanceTo(S.target) > .05;
+      if (!moving) S.target = null;
+    }
+    if (S.tyaw != null) { const d = angDiff(S.yaw, S.tyaw); S.yaw += d * (1 - Math.exp(-dt * 3)); if (Math.abs(d) < .002) S.tyaw = null; }
+    if (S.tpitch != null) { S.pitch += (S.tpitch - S.pitch) * (1 - Math.exp(-dt * 3)); }
+    bob += moving ? dt * 8 : 0;
+    camera.position.set(S.pos.x, S.pos.y + (moving ? Math.sin(bob) * .025 : 0), S.pos.z);
+    camera.rotation.set(S.pitch, S.yaw, 0);
+    renderer.render(scene, camera);
+    requestAnimationFrame(loop);
+  }
+  return {
+    start(fi) {
+      size(); S.running = true; clock.getDelta();
+      if (fi != null) { const k = tour.findIndex(t => t.i === fi); if (k >= 0) focus(k); }
+      else if (S.cur < 0) { S.pos.set(0, 1.6, RL / 2 - .9); S.yaw = 0; S.pitch = 0; focus(0); }   // walking in, you're led straight to the first photograph
+      loop();
+    },
+    stop() { S.running = false; S.keys = {}; }
+  };
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Day</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..600;1,400..600&family=Jost:wght@300;400;500;600&family=Pinyon+Script&display=swap">
+<link rel="stylesheet" href="site.css">
+<script>try{history.scrollRestoration="manual"}catch(e){}try{if(sessionStorage.getItem("vt")){document.documentElement.classList.add("vt-in");sessionStorage.removeItem("vt")}}catch(e){}</script>
+</head>
+<body data-page="the-day.html" class="page-day">
+<div class="veil" aria-hidden="true"></div>
+<main>
+<!-- ================= THE DAY ================= -->
+<section id="day">
+  <div class="page" style="min-height:0">
+    <div class="wrap">
+      <header class="page-head reveal">
+        <span class="eyebrow">The Day</span>
+        <h1>Friday, December 18</h1>
+        <p class="lede">A small ceremony with our closest people in the heart of Laguna Beach, timed so the sun sets while we celebrate.</p>
+      </header>
+
+      <div class="sub">
+        <div class="sub-head"><span class="eyebrow">At a glance</span><h3>The essentials</h3></div>
+        <div class="glance" id="glance"></div>
+      </div>
+
+      <div class="sub">
+        <div class="sub-head sched-head" id="schedHead"><span class="eyebrow">Schedule</span><h3>From afternoon light to after dark</h3></div>
+        <div class="sched">
+          <div class="sky" id="sky" aria-hidden="true">
+            <svg viewBox="0 0 400 520" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <clipPath id="aboveSea"><rect x="0" y="0" width="400" height="330"/></clipPath>
+                <clipPath id="ground"><path d="M0 292c38-12 82-8 122 6 30 10 56 21 78 32H0z"/><path d="M0 314c28-14 66-14 96-2 22 9 36 24 44 40V340H0z"/><path d="M226 341c1-12 6-21 13-22 6-1 10 6 11 13l3-4c4-2 9 1 10 6l2 7z"/><rect x="0" y="329.5" width="400" height="191"/></clipPath>
+                <linearGradient id="seaG" x1="0" y1="330" x2="0" y2="520" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#A0CABF"/><stop offset="1" stop-color="#5F958B"/></linearGradient>
+                <radialGradient id="sunHalo"><stop offset="0" stop-color="#FFF3DC" stop-opacity=".9"/><stop offset=".45" stop-color="#FFD9B4" stop-opacity=".35"/><stop offset="1" stop-color="#FFD9B4" stop-opacity="0"/></radialGradient>
+              </defs>
+              <g id="stars" opacity="0"></g>
+              <g id="moon" opacity="0"><circle cx="318" cy="88" r="15" fill="#FBF3DE"/><circle cx="325" cy="83" r="13.5" style="fill:var(--sky1,#0B1424)"/></g>
+              <!-- the sun drifts down to set into the ocean on the right -->
+              <g clip-path="url(#aboveSea)"><circle id="sunGlow" cx="160" cy="140" r="78" fill="url(#sunHalo)"/><circle id="sun" cx="160" cy="140" r="24" fill="#FFF4DE"/></g>
+              <!-- ocean, with soft bands toward the horizon -->
+              <path d="M120 330H400V520H300C280 480 250 440 226 410 190 380 160 360 128 344z" fill="url(#seaG)"/>
+              <path d="M168 336H400M180 343H400" stroke="rgba(255,255,255,.28)" stroke-width="1"/>
+              <path d="M240 372h140M282 414h100M318 466h70" stroke="rgba(255,255,255,.14)" stroke-width=".8" fill="none"/>
+              <ellipse id="glint" cx="300" cy="336" rx="34" ry="3" fill="#FFF1D8" opacity="0"/>
+              <path id="glint2" d="M286 346h28M290 358h20M294 371h12" stroke="#FFF1D8" stroke-width="2.2" stroke-linecap="round" opacity="0"/>
+              <!-- a Laguna sea stack just off the beach -->
+              <path d="M226 341c1-12 6-21 13-22 6-1 10 6 11 13l3-4c4-2 9 1 10 6l2 7z" fill="#C9B59C"/>
+              <path d="M239 326c3 0 5 4 5 9" stroke="rgba(255,255,255,.35)" stroke-width="1" fill="none"/>
+              <path class="foam" d="M222 342c6-2 12 2 18 0s12 2 18 0 8 1 9 0" stroke="#FFFFFF" stroke-width="1.4" fill="none" opacity=".8"/>
+              <!-- the cove: sand, wet sand at the waterline and lacy foam -->
+              <path d="M0 360C50 356 100 352 124 342 160 360 190 380 226 410c24 30 54 70 74 110H0z" fill="#F4E6CA"/>
+              <path d="M128 344C160 360 190 380 226 410c24 30 54 70 74 110" fill="none" stroke="#E5D0AE" stroke-width="10"/>
+              <g class="foam">
+                <path d="M128 344C160 360 190 380 226 410c24 30 54 70 74 110" transform="translate(4 -3)" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" opacity=".7"/>
+                <path d="M128 344C160 360 190 380 226 410c24 30 54 70 74 110" transform="translate(11 -6)" fill="none" stroke="#FFFFFF" stroke-width=".8" stroke-linecap="round" opacity=".35"/>
+              </g>
+              <!-- soft rolling coastal hills, dotted with cottages and wildflowers -->
+              <defs><linearGradient id="hillG" x1="0" y1="300" x2="0" y2="392" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#CFE3C2"/><stop offset="1" stop-color="#B5CFA8"/></linearGradient></defs>
+              <path d="M0 292c38-12 82-8 122 6 30 10 56 21 78 32H0z" fill="#DCE7D6"/>
+              <path d="M0 314c28-14 66-14 96-2 22 9 36 24 44 40-30 20-80 32-140 40z" fill="url(#hillG)"/>
+              <path d="M6 330c26-8 56-8 82 0M2 352c32-8 70-6 104 4" stroke="rgba(255,255,255,.35)" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+              <g>
+                <g transform="translate(20 307.6) scale(1.8)"><rect x="0" y="0" width="12" height="8" fill="#FFFBF2"/><path d="M-1.5 0h15L6-6z" fill="#E2B3AC"/><rect x="4.5" y="3" width="3" height="5" fill="#D3DCDA"/></g>
+                <g transform="translate(55 312.8) scale(1.8)"><rect x="0" y="0" width="14" height="9" fill="#FFFBF2"/><path d="M-1.5 0h17L7-6.5z" fill="#BDCDC9"/><rect x="2.5" y="3" width="3" height="3" fill="#E3CDBF"/><rect x="8.5" y="3" width="3" height="3" fill="#E3CDBF"/></g>
+                <g transform="translate(90 326.4) scale(1.8)"><rect x="0" y="0" width="11" height="7" fill="#FFFBF2"/><path d="M-1.5 0h14L5.5-5z" fill="#E8C7B6"/><rect x="4" y="2.5" width="3" height="4.5" fill="#D3DCDA"/></g>
+              </g>
+              <g>
+</g>
+              <!-- slender palms leaning toward the sea -->
+              <g id="palms" color="#7E9C8A">
+                <path d="M14 312c2-22 1-40-4-56M44 306c4-20 6-36 4-50M118 330c5-16 10-30 18-42" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <g fill="currentColor">
+                  <path d="M10 256c-10-6-21-5-29 2 10-2 20-1 29 0zm0 0c5-10 15-14 26-11-10 2-19 6-26 11zm0 0c-3-10-11-15-21-16 8 4 15 9 21 16zm0 0c8-6 18-7 26-3-9 0-18 2-26 5zm0 0c-9 1-16 7-19 15 6-6 12-11 19-15z"/>
+                  <path d="M48 256c-9-6-19-5-26 1 9-1 18-1 26-1zm0 0c5-9 14-12 24-10-9 2-17 6-24 10zm0 0c-2-9-9-14-18-15 7 4 13 9 18 15zm0 0c7-5 16-6 23-2-8 0-16 2-23 4zm0 0c-8 1-14 6-17 13 5-5 11-9 17-13z"/>
+                  <path d="M136 288c-8-6-18-6-25 0 8-1 17-1 25 0zm0 0c4-9 13-13 23-11-9 2-16 6-23 11zm0 0c-2-9-8-14-17-15 7 4 12 9 17 15zm0 0c7-5 16-5 22-1-8 0-15 1-22 3z"/>
+                </g>
+              </g>
+              <!-- night falls over land and sea alike -->
+              <rect id="dusk" x="0" y="200" width="400" height="320" fill="#0B1424" opacity="0" clip-path="url(#ground)"/>
+              <filter id="grainF"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="4"/><feColorMatrix values="0 0 0 0 .45  0 0 0 0 .36  0 0 0 0 .3  0 0 0 .55 0"/></filter>
+              <rect width="400" height="520" filter="url(#grainF)" opacity=".13" style="mix-blend-mode:multiply"/>
+            </svg>
+            <span class="time" id="skyTime">3:30 PM</span>
+            <span class="what" id="skyWhat">Arrival</span>
+          </div>
+          <ol class="tl" id="timeline"><span class="fill" id="tlFill"></span></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="map-scene" id="mapScene">
+    <div class="map-sticky">
+      <div class="wrap" style="width:100%">
+        <div class="sub-head"><span class="eyebrow">Where</span></div>
+        <div class="map-wrap"><div class="map-box">
+          <canvas id="globe" aria-hidden="true"></canvas>
+          <svg id="map" viewBox="0 0 1000 700" role="img" aria-label="Map zooming from the Southern California coast into Laguna Beach, ending at the Woman's Club of Laguna Beach"></svg>
+        </div>
+          <div class="map-links map-dir"><a class="btn solid small" id="mapsBtn" data-href="maps" target="_blank" rel="noopener">Google Maps</a><a class="btn small" id="appleBtn" data-href="apple" target="_blank" rel="noopener">Apple Maps</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="bookSec" aria-hidden="true"></div>
+</section>
+
+</main>
+<div id="nextSlot"></div>
+<script src="https://cdn.jsdelivr.net/npm/d3-array@3.2.4/dist/d3-array.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3-geo@3.1.0/dist/d3-geo.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script src="globe-data.js"></script>
+<script src="biomes.js"></script>
+<script src="site.js"></script>
+<script>
+/* ---------------- the day: bento, schedule, cards ---------------- */
+(function day() {
+  /* at a glance: six matching cards */
+  const G = [
+    ["Ceremony", CONFIG.ceremonyLabel, "Pacific time · please arrive by 3:30"],
+    ["Venue", CONFIG.venue.name, CONFIG.venue.address],
+    ["Getting there", "Fly into SNA or LAX", "John Wayne (SNA): about 25 min\nLAX: about an hour, more with traffic"],
+    ["Parking", "On site and on the street", "18 spots at the venue, plus easy street parking nearby"],
+    ["Dress code", CONFIG.dressCode, "Evenings dip to about 50°F, so bring a layer"],
+    ["Kindly reply", `By ${CONFIG.rsvpBy.replace(/,\s*\d{4}$/, "")}`, "RSVP on Zola", "rsvp.html"]
+  ];
+  $("#glance").innerHTML = G.map(([l, v, n, href], i) => `<div class="gcard reveal" style="transition-delay:${i * .07}s"><span class="lab" data-l="${esc(l)}">${esc(l)}</span><i class="orn" aria-hidden="true"></i><span class="val">${esc(v)}</span><span class="note">${href ? `<a href="${href}">${esc(n)}</a>` : esc(n).replace(/\n/g, "<br>")}</span></div>`).join("");
+
+  /* two butterflies, one blush and one aqua, who drift in and rest on the cards */
+  (function butterflies() {
+    const host = $("#glance");
+    // a slender swallowtail drawn once for the left side and mirrored for the right
+    // a slender swallowtail drawn once for the left side and mirrored for the right
+    const WING = (id, edge) => `
+        <path d="M-1.4-3C-6-14-16-25-29-23c-2.4 7 .6 15 11 19.5 6 2.5 11.6 1.6 16.6.5z" fill="url(#${id}f)"/>
+        <path d="M-1.4.6C-7 1.2-16 3.6-19 10.6c-1.6 4.6 1.4 7.6 5.2 6.8.8 3.6 2.6 7.4 5 10-.2-4.6.6-9 2.2-12.8 1.8-4.4 3.4-9.2 5.2-14z" fill="url(#${id}h)"/>
+        <path d="M-3-3.2C-9-9-15-15.5-24-20.5M-3.4-2.4C-10-5.6-17-7.8-26.6-8.4M-3 1.8C-7.6 5.2-11 9.4-13.6 15M-2.6 2.4C-4.6 8-6.4 14-7.6 22" fill="none" stroke="${edge}" stroke-width=".42" opacity=".45" stroke-linecap="round"/>
+        <path d="M-1.4-3C-6-14-16-25-29-23c-2.4 7 .6 15 11 19.5" fill="none" stroke="${edge}" stroke-width="1.6" opacity=".18" stroke-linecap="round"/>
+        <path d="M-6-17C-12-22-20-24-26-21" fill="none" stroke="${edge}" stroke-width=".8" opacity=".25" stroke-linecap="round"/>
+        <circle cx="-17.5" cy="-12.5" r="2.3" fill="#FFFBF2" opacity=".85"/><circle cx="-17.5" cy="-12.5" r="1" fill="${edge}" opacity=".5"/>
+        <circle cx="-25.6" cy="-19" r=".7" fill="#E9C987"/><circle cx="-27.2" cy="-14.6" r=".7" fill="#E9C987"/><circle cx="-25.4" cy="-10" r=".7" fill="#E9C987"/>
+        <circle cx="-15.4" cy="13.4" r=".75" fill="#E9C987"/><circle cx="-11.6" cy="16.6" r=".6" fill="#E9C987"/>`;
+    const wing = (c1, c2, edge, id) => `<svg viewBox="-32 -28 64 60" aria-hidden="true">
+      <defs>
+        <linearGradient id="${id}f" x1="0" y1="0" x2="-29" y2="-22" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="${c2}"/><stop offset=".5" stop-color="${c1}"/><stop offset="1" stop-color="${edge}" stop-opacity=".85"/></linearGradient>
+        <linearGradient id="${id}h" x1="0" y1="0" x2="-14" y2="24" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="${c2}"/><stop offset=".7" stop-color="${c1}"/><stop offset="1" stop-color="${edge}" stop-opacity=".7"/></linearGradient>
+        <linearGradient id="${id}b" x1="-1.2" y1="0" x2="1.2" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#3B2B2E"/><stop offset=".45" stop-color="#7A5F62"/><stop offset="1" stop-color="#3B2B2E"/></linearGradient>
+      </defs>
+      <g class="wl">${WING(id, edge)}</g>
+      <g class="wr"><g transform="scale(-1 1)">${WING(id, edge)}</g></g>
+      <path d="M-.7-10C-2.4-16-4.6-20.6-7.4-23M.7-10C2.4-16 4.6-20.6 7.4-23" fill="none" stroke="#5A4245" stroke-width=".4" stroke-linecap="round"/>
+      <circle cx="-7.4" cy="-23" r=".75" fill="#4A3336"/><circle cx="7.4" cy="-23" r=".75" fill="#4A3336"/>
+      <ellipse cx="0" cy="2" rx="1.15" ry="10.5" fill="url(#${id}b)"/><circle cx="0" cy="-9" r="1.5" fill="#5A4245"/>
+    </svg>`;
+    const kinds = [["#E0959A", "#F2C7BE", "#6E1F2C"], ["#64847E", "#B4D3CD", "#294845"]];   // blush, and a deep sea green
+    const B = kinds.map(([a, b, e], i) => {
+      const el = document.createElement("button");
+      el.className = "bfly"; el.type = "button"; el.setAttribute("aria-label", i ? "Blue butterfly" : "Pink butterfly");
+      el.innerHTML = wing(a, b, e, "bw" + i); host.appendChild(el);
+      return { el, x: 0, y: 0, rot: 0, state: "away", card: -1, anim: null };
+    });
+    const cards = () => $$(".gcard", host);
+    const hostRect = () => host.getBoundingClientRect();
+    // a resting spot on any edge of a card; kept as (card, edge, fraction) so it survives resizes
+    function spotXY(sp) {
+      const r = cards()[sp.card].getBoundingClientRect(), h = hostRect(), L = r.left - h.left, T = r.top - h.top;
+      if (sp.edge === "top") return { x: L + r.width * sp.f, y: T + 2 };
+      if (sp.edge === "bottom") return { x: L + r.width * sp.f, y: T + r.height + 30 };
+      if (sp.edge === "left") return { x: L - 4, y: T + r.height * sp.f + 22 };
+      return { x: L + r.width + 4, y: T + r.height * sp.f + 22 };
+    }
+    const ROT = { top: [-18, 18], bottom: [162, 198], left: [-104, -76], right: [76, 104] };
+    function makeSpot(card, edge) {
+      const [a, z] = ROT[edge]; return { card, edge, f: .2 + Math.random() * .6, rot: a + Math.random() * (z - a) };
+    }
+    // which cards sit in the top half of the grid and which in the bottom half
+    function halves() {
+      const cs = cards(), h = hostRect(), mid = h.top + h.height / 2, top = [], bot = [];
+      cs.forEach((c, i) => { const r = c.getBoundingClientRect(); (r.top + r.height / 2 < mid ? top : bot).push(i); });
+      return [top.length ? top : [0], bot.length ? bot : [cs.length - 1]];
+    }
+    // the whole butterfly must stay on screen: keep its centre this far from the viewport's sides
+    const MARGIN = 46;
+    const onScreen = p => { const vx = hostRect().left + p.x; return vx > MARGIN && vx < innerWidth - MARGIN; };
+    function safeTop(card) {                    // a top-edge spot, nudged inward if the card runs close to the screen edge
+      const sp = makeSpot(card, "top"), r = cards()[card].getBoundingClientRect(), lo = (MARGIN - r.left) / r.width, hi = (innerWidth - MARGIN - r.left) / r.width;
+      sp.f = Math.min(Math.max(sp.f, Math.max(.12, lo)), Math.min(.88, hi)); return sp;
+    }
+    // anywhere around the cards, but never right next to the other butterfly, and always fully visible
+    function anywhere(b) {
+      const n = cards().length, other = B.find(o => o !== b);
+      for (let k = 0; k < 24; k++) {
+        const r = Math.random(), edge = r < .4 ? "top" : r < .6 ? "bottom" : r < .8 ? "left" : "right";
+        const sp = makeSpot(Math.floor(Math.random() * n), edge), p = spotXY(sp);
+        if (!onScreen(p)) continue;
+        if (!other || other.state === "away" || Math.hypot(p.x - other.x, p.y - other.y) > 110) return sp;
+      }
+      return safeTop(Math.floor(Math.random() * n));
+    }
+    function place(b) { b.el.style.transform = `translate(${b.x}px,${b.y}px) rotate(${b.rot}deg)`; }
+    function fly(b, to, ms, then) {               // curved, wobbling flight; can be redirected mid-air without a jolt
+      const mid = b.state === "flying";
+      cancelAnimationFrame(b.anim); b.state = "flying"; b.el.classList.add("flying"); b.el.classList.remove("resting");
+      const x0 = b.x, y0 = b.y, r0 = b.rot, dx = to.x - x0, dy = to.y - y0, len = Math.hypot(dx, dy) || 1;
+      let cx, cy;
+      const sp = Math.hypot(b.vx || 0, b.vy || 0);
+      if (mid && sp > .01) {                        // already flying: carry on in the current direction, then curve toward the new spot
+        const reach = Math.min(170, len * .55); cx = x0 + b.vx / sp * reach; cy = y0 + b.vy / sp * reach;
+      } else {
+        const bend = (Math.random() < .5 ? -1 : 1) * Math.min(160, len * .45), nx = -dy / len, ny = dx / len;
+        cx = x0 + dx / 2 + nx * bend; cy = y0 + dy / 2 + ny * bend - 40;
+      }
+      const t0 = performance.now();
+      const pt = t => [(1 - t) * (1 - t) * x0 + 2 * (1 - t) * t * cx + t * t * to.x, (1 - t) * (1 - t) * y0 + 2 * (1 - t) * t * cy + t * t * to.y];
+      const ease = mid ? (k => 1 - Math.pow(1 - k, 2.2)) : (k => k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2);
+      let px = x0, py = y0;
+      (function step(now) {
+        const k = Math.min(1, (now - t0) / ms), t = ease(k);
+        const [x, y] = pt(t), [x2, y2] = pt(Math.min(1, t + .02));
+        b.x = x + Math.sin(k * 18) * 6 * (1 - k); b.y = y + Math.sin(k * 14) * 5 * (1 - k);
+        b.vx = b.x - px; b.vy = b.y - py; px = b.x; py = b.y;
+        // turn smoothly toward the direction of travel, then toward the resting angle; never more than a few degrees a frame
+        const head = Math.atan2(y2 - y, x2 - x) * 180 / Math.PI + 90, want = k < .72 ? head : (to.rot ?? 0);
+        const d = ((want - b.rot) % 360 + 540) % 360 - 180, gain = k < .72 ? .16 : k < .9 ? .22 : .4;
+        b.rot += Math.max(-8, Math.min(8, d * gain));
+        place(b);
+        if (k < 1) b.anim = requestAnimationFrame(step); else { b.vx = b.vy = 0; b.el.classList.remove("flying"); then && then(); }
+      })(t0);
+    }
+    // a butterfly only moves when it's clicked; a click mid-flight simply sends it somewhere new
+    function land(b, sp) {
+      b.spot = sp; const p = spotXY(sp); p.rot = sp.rot;
+      fly(b, p, 1500 + Math.random() * 700, () => { b.state = "resting"; b.spot.rot = b.rot; place(b); b.el.classList.add("resting"); });
+    }
+    function edgePoint(fromLeft) { const h = hostRect(); return { x: fromLeft ? -80 : h.width + 80, y: -60 + Math.random() * h.height * .6 }; }
+    function arrive(b, i, sp) { const e = edgePoint(i === 0); b.x = e.x; b.y = e.y; b.state = "flying"; b.el.hidden = false; place(b); setTimeout(() => land(b, sp), i * 450); }
+    function flyAway(b) {
+      const h = hostRect(), out = { x: Math.random() < .5 ? -120 : h.width + 120, y: -window.innerHeight * .6 };
+      b.card = -1; fly(b, out, 1300, () => { b.state = "away"; b.el.hidden = true;
+        setTimeout(() => { if (inView && b.state === "away") arrive(b, B.indexOf(b)); }, 6000); });
+    }
+    B.forEach(b => {
+      b.el.hidden = true;
+      b.el.addEventListener("click", e => { e.stopPropagation(); if (b.state !== "away") land(b, anywhere(b)); });   // a tap sends it fluttering to another card; it never leaves
+    });
+    // nudge: when the cursor comes close to a resting butterfly, it lifts off and settles elsewhere
+    addEventListener("resize", () => B.forEach(b => {
+      if (b.state !== "resting" || !b.spot) return;
+      const p = spotXY(b.spot); if (!onScreen(p)) { land(b, anywhere(b)); return; }
+      b.x = p.x; b.y = p.y; place(b);
+    }));
+    let inView = false, started = false;
+    // first landing: one butterfly on either of the first two cards (top left), the other on either of the last two (bottom right).
+    // on phones the cards stack in one column, so the second one lands on card 3 or 4 instead, close to the first.
+    const oneCol = () => { const cs = cards(); return cs.length > 1 && Math.abs(cs[0].getBoundingClientRect().left - cs[1].getBoundingClientRect().left) < 2; };
+    const begin = () => {
+      if (started) return; started = true;
+      const n = cards().length, pick = a => a[Math.floor(Math.random() * a.length)];
+      // pink on one of the first two cards, blue on one of the last two. on a grid it's always a top-left to bottom-right diagonal
+      const x = k => cards()[k].getBoundingClientRect().left, pairs = [];
+      for (const a of [0, 1]) for (const z of [n - 2, n - 1]) if (oneCol() || x(z) > x(a) + 2) pairs.push([a, z]);
+      const targets = pairs.length ? pick(pairs) : [0, n - 1];
+      const first = B.map((b, i) => safeTop(targets[i]));
+      if (REDUCED) B.forEach((b, i) => { b.spot = first[i]; const p = spotXY(first[i]); b.x = p.x; b.y = p.y; b.rot = first[i].rot; b.state = "resting"; b.el.hidden = false; b.el.classList.add("resting"); place(b); });
+      else {
+        arrive(B[0], 0, first[0]);
+        // the blue one comes in when its card is on screen: straight away on desktop, on scroll on phones
+        const card = cards()[targets[1]], r = card.getBoundingClientRect();
+        if (!oneCol() || (r.top < innerHeight - 40 && r.bottom > 0)) arrive(B[1], 1, first[1]);
+        else { const io = new IntersectionObserver(es => { if (es[0].isIntersecting) { io.disconnect(); arrive(B[1], 1, first[1]); } }, { threshold: .5 }); io.observe(card); }
+      }
+    };
+    new IntersectionObserver(es => { inView = es[0].isIntersecting; }, { threshold: .1 }).observe(host);
+    // they arrive one second after the page opens, without waiting for a scroll
+    setTimeout(() => { inView = true; begin(); }, 1000);
+  })();
+
+  const tl = $("#timeline");
+  tl.insertAdjacentHTML("beforeend", CONFIG.schedule.map((s, i) => `<li data-i="${i}"><span class="t">${esc(s.t)}</span><h4>${esc(s.h)}</h4><p>${esc(s.p)}</p></li>`).join(""));
+
+  const stars = $("#stars"); const sr = rng(7);
+  let st = ""; for (let i = 0; i < 90; i++) st += `<circle cx="${(sr() * 400).toFixed(1)}" cy="${(sr() * 300).toFixed(1)}" r="${(sr() * 1.4 + .35).toFixed(2)}" fill="#FFFBF2" opacity="${(.45 + sr() * .55).toFixed(2)}"/>`;
+  stars.innerHTML = st;
+
+  const cards = [
+    { h: "Weather", s: "Mid-December", icon: '<circle cx="21" cy="17" r="7"/><path d="M8 34h22a6 6 0 0 0 0-12 9 9 0 0 0-17 2 5 5 0 0 0-5 10z"/>', b: "Mild", p: "Days usually sit in the 60s°F and evenings drop to around 50°F. Bring a jacket or wrap for after sunset." },
+    { h: "Getting there", s: "Airports", icon: '<path d="M6 26l30-10-6 18-8-6-6 6v-8z"/>', b: "Fly into SNA or LAX", p: "John Wayne Airport (SNA) is the closest, roughly 25 minutes by car. LAX is about an hour, more with traffic." },
+    { h: "Parking", s: "At the venue", icon: '<rect x="8" y="6" width="26" height="30" rx="4"/><path d="M17 30V13h6a5 5 0 0 1 0 10h-6"/>', b: "On site and on the street", p: "18 spots across the front and back lots, plus plenty of street parking on the surrounding blocks." },
+    { h: "Attire", s: "What to wear", icon: '<path d="M15 6l6 5 6-5 7 6-4 6-3-2v20H15V16l-3 2-4-6z"/>', b: CONFIG.dressCode, p: CONFIG.dressNote }
+  ];
+})();
+/* ---------------- map ---------------- */
+const MAP = (function map() {
+  const svg = $("#map"), NS = "http://www.w3.org/2000/svg";
+  const f = x => 350 + .62 * (x - 470) + 22 * Math.sin((x - 470) / 160) + .6 * Math.sin(x * .9) + .35 * Math.sin(x * 2.3);
+  const df = x => (f(x + .01) - f(x - .01)) / .02;
+  const pts = []; for (let x = -140; x <= 1140; x += (x > 520 && x < 660) ? .5 : 3) pts.push([x, f(x)]);
+  const coast = pts.map((p, i) => (i ? "L" : "M") + p[0].toFixed(2) + " " + p[1].toFixed(2)).join("");
+  const off = (x0, x1, d) => { let s = ""; for (let x = x0; x <= x1; x += .5) { const m = df(x), n = Math.hypot(m, 1), nx = m / n, ny = -1 / n; s += (s ? "L" : "M") + (x + nx * d).toFixed(2) + " " + (f(x) + ny * d).toFixed(2); } return s; };
+  const at = (x, d) => { const m = df(x), n = Math.hypot(m, 1); return [x + m / n * d, f(x) - d / n]; };
+  const V = at(590, 4.2);
+  const hw = at(590, 1.8);
+  const ang = Math.atan(df(590)) * 180 / Math.PI;
+  const cities = [[80, "Long Beach"], [230, "Huntington Beach"], [380, "Newport Beach"], [590, "Laguna Beach"], [735, "Dana Point"], [870, "San Clemente"]];
+  const waveLines = [...Array(26)].map((_, i) => { const x = 40 + (i * 137) % 900, y = f(x) + 40 + (i * 53) % 300; return y < 690 ? `<path d="M${x} ${y} q 6 -5 12 0 t 12 0" class="w"/>` : ""; }).join("");
+  svg.innerHTML = `
+    <style>
+      .w{fill:none;stroke:rgba(56,107,101,.35);stroke-width:1.4;vector-effect:non-scaling-stroke}
+      .reg text{font-family:Jost,system-ui,sans-serif;font-size:15px;letter-spacing:.14em;text-transform:uppercase;fill:#24393B}
+      .reg .big{font-family:'EB Garamond',Georgia,serif;font-style:italic;letter-spacing:0;text-transform:none;font-size:30px;fill:#386B65}
+      .det text{font-family:Jost,system-ui,sans-serif;font-size:1.25px;fill:#24393B;letter-spacing:.05px}
+      .det .it{font-family:'EB Garamond',Georgia,serif;font-style:italic;font-size:2px;fill:#386B65}
+    </style>
+    <rect x="-300" y="-300" width="1600" height="1400" fill="#CAE4DD"/>
+    <g>${waveLines}</g>
+    <path d="${coast}L1140 -300L-140 -300Z" fill="#F7E9D2"/>
+    <path d="${off(-140, 1140, 22)}" fill="none" stroke="rgba(242,198,180,.9)" stroke-width="1.2" vector-effect="non-scaling-stroke" stroke-dasharray="4 6"/>
+    <path d="${off(-140, 1140, 60)}" fill="none" stroke="rgba(242,198,180,.7)" stroke-width="1.2" vector-effect="non-scaling-stroke" stroke-dasharray="4 6"/>
+    <path d="${off(520, 660, -.6)}" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="2" vector-effect="non-scaling-stroke"/>
+    <path d="${coast}" fill="none" stroke="#E2B49F" stroke-width="2" vector-effect="non-scaling-stroke"/>
+    <g class="reg" id="regLayer">
+      ${cities.map(([x, n]) => `<circle cx="${x}" cy="${f(x) - 6}" r="4" fill="${n === "Laguna Beach" ? "#8B2C3A" : "#24393B"}"/><text x="${x + 10}" y="${f(x) - 14}">${n}</text>`).join("")}
+      <text class="big" x="190" y="470">Pacific Ocean</text>
+      <text x="640" y="190" style="letter-spacing:.4em;font-size:13px;fill:#55696B">Orange County</text>
+    </g>
+    <g class="det" id="detLayer" opacity="0">
+      <path d="${off(540, 640, 3.6)}" fill="none" stroke="#F0BDB2" stroke-width="4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+      <path d="${off(540, 640, 1.8)}" fill="none" stroke="#F2C6B4" stroke-width="7" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+      ${[574, 582, 598, 606].map(x => { const a = at(x, 1.8), b = at(x, 7); return `<path d="M${a[0]} ${a[1]}L${b[0]} ${b[1]}" stroke="#F2C6B4" stroke-width="3" vector-effect="non-scaling-stroke"/>`; }).join("")}
+      <path d="M${hw[0]} ${hw[1]} L${V[0]} ${V[1]}" stroke="#8B2C3A" stroke-width="3.5" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+      <text x="${at(566, 1.8)[0]}" y="${at(566, 1.8)[1] + .4}" transform="rotate(${ang} ${at(566, 1.8)[0]} ${at(566, 1.8)[1]})">Coast Hwy</text>
+      <text x="${at(570, 3.6)[0]}" y="${at(570, 3.6)[1] - .5}" transform="rotate(${ang} ${at(570, 3.6)[0]} ${at(570, 3.6)[1]})" style="font-size:1px;fill:#55696B">Glenneyre St</text>
+      <text class="it" x="${at(578, -9)[0]}" y="${at(578, -9)[1]}">Pacific Ocean</text>
+      <text x="${V[0] + 2.2}" y="${V[1] - 1.6}" style="font-size:1.35px;font-weight:600">Woman's Club</text>
+      <text x="${V[0] + 2.2}" y="${V[1] - .1}" style="font-size:1.05px;fill:#55696B">286 St. Ann's Drive</text>
+      <g class="pin-g" id="pinG">
+        <circle class="pin-ring" cx="${V[0]}" cy="${V[1]}" r="1.1" fill="none" stroke="#8B2C3A" stroke-width=".25"/>
+        <g class="pin"><path d="M${V[0]} ${V[1]} c -.9 -1.4 -1.8 -2.3 -1.8 -3.4 a 1.8 1.8 0 0 1 3.6 0 c 0 1.1 -.9 2 -1.8 3.4 z" fill="#8B2C3A" stroke="#FFFBF2" stroke-width=".22"/><circle cx="${V[0]}" cy="${V[1] - 3.35}" r=".62" fill="#FFFBF2"/></g>
+      </g>
+    </g>`;
+  const reg = $("#regLayer"), det = $("#detLayer"), pin = $("#pinG"), hint = { textContent: "" };
+  const W0 = 1000, Z = 1000 / 48;
+  function set(p) {
+    const e = smooth(0, 1, p);
+    const s = Math.exp(lerp(0, Math.log(Z), e));
+    const w = W0 / s, h = w * .7;
+    const cx = lerp(V[0], V[0] + 1.5, e), cy = lerp(V[1], V[1] - 2.5, e);
+    svg.setAttribute("viewBox", `${(cx - w / 2).toFixed(3)} ${(cy - h / 2).toFixed(3)} ${w.toFixed(3)} ${h.toFixed(3)}`);
+    reg.setAttribute("opacity", (1 - smooth(.25, .55, e)).toFixed(3));
+    det.setAttribute("opacity", smooth(.55, .85, e).toFixed(3));
+    pin.classList.toggle("drop", e > .9);
+    hint.textContent = e < .3 ? "Orange County coast" : e < .8 ? "Laguna Beach" : "St. Ann's Drive";
+  }
+  set(0);
+  return { set };
+})();
+
+
+/* ---------------- globe: India → Europe → Laguna, pastel terrain all the way down to the clubhouse ---------------- */
+const GLOBE = (function () {
+  if (REDUCED || !window.d3 || !d3.geoOrthographic || !window.topojson || !window.LAND110) return null;
+  const box = $(".map-box"), cv = $("#globe"), svg = $("#map"), hint = { textContent: "" }, ctx = cv.getContext("2d");
+  const land = topojson.feature(LAND110, LAND110.objects.land), west = window.LAND_WEST || land, local = window.LAND_LOCAL || west;
+  const sphere = { type: "Sphere" };
+  // real climate zones (Köppen–Geiger), each a single soft colour
+  const CLIMATE = { rainforest: "#AFD5B6", savanna: "#C9E0B4", desert: "#F6E2BE", steppe: "#E4E3C2", mediterranean: "#DCE4C3",
+    temperate: "#CBE1C3", continental: "#C6DEC6", boreal: "#B9D5C2", tundra: "#E4DDD5", ice: "#FBFAF6" };
+  const proj = d3.geoOrthographic().clipAngle(90).precision(.4), path = d3.geoPath(proj, ctx);
+  const DEG = Math.PI / 180;
+  const START = [78.47, 17.38], EU = [6.5, 49.5];
+  /* ---- local geometry around the venue, in metres along the Laguna coastline ---- */
+  const SP = window.COAST_LAGUNA || [[-117.777, 33.529], [-117.824, 33.561]], LAT0 = 33.535, MX = 111320 * Math.cos(LAT0 * DEG), MY = 111320;
+  const toM = ([lo, la]) => [(lo + 117.78) * MX, (la - LAT0) * MY], toG = ([x, y]) => [x / MX - 117.78, y / MY + LAT0];
+  const spM = SP.map(toM), segL = [], cum = [0];
+  for (let i = 1; i < spM.length; i++) { const l = Math.hypot(spM[i][0] - spM[i - 1][0], spM[i][1] - spM[i - 1][1]); segL.push(l); cum.push(cum[i - 1] + l); }
+  function along(a, d) {             // point a metres along the coast, d metres inland
+    let i = 0; while (i < segL.length - 1 && a > cum[i + 1]) i++;
+    const t = (a - cum[i]) / segL[i], p0 = spM[i], p1 = spM[i + 1], dx = (p1[0] - p0[0]) / segL[i], dy = (p1[1] - p0[1]) / segL[i];
+    let nx = -dy, ny = dx; if (nx + ny < 0) { nx = -nx; ny = -ny; }   // inland is north-east
+    return toG([p0[0] + dx * (a - cum[i]) + nx * d, p0[1] + dy * (a - cum[i]) + ny * d]);
+  }
+  let aV = 0, best = 1e18; const tgt = toM([-117.778404, 33.537449]);   // the Woman's Club (Apple Maps coordinate)
+  for (let a = 0; a <= cum[cum.length - 1]; a += 5) { const p = toM(along(a, 0)), dd = (p[0] - tgt[0]) ** 2 + (p[1] - tgt[1]) ** 2; if (dd < best) { best = dd; aV = a; } }
+  const LAG = along(aV, 400);        // the Woman's Club, on St. Ann's Drive between Coast Hwy and Glenneyre
+  const line = (a0, a1, d) => { const c = []; for (let a = a0; a <= a1; a += 40) c.push(along(a, d)); return { type: "LineString", coordinates: c }; };
+  const ROADS = {
+    hwy: line(aV - 6000, aV + 6000, 230), glen: line(aV - 4000, aV + 4000, 560), third: line(aV - 3000, aV + 3000, 880),
+    cross: [...Array(25)].map((_, i) => { const a = aV + (i - 12) * 260; return { type: "LineString", coordinates: [along(a, 230), along(a, i % 3 ? 900 : 1300)] }; }),
+    stAnn: { type: "LineString", coordinates: [along(aV, 230), along(aV, 560)] }
+  };
+  const TREES = []; { const r = rng(42); for (let i = 0; i < 260; i++) { const a = aV + (r() - .5) * 5000, d = 120 + r() * 1300; if (Math.abs(d - 230) < 30 || Math.abs(d - 560) < 30 || Math.abs(d - 880) < 30) continue; TREES.push([along(a, d), .7 + r() * .6, r() < .5]); } }
+  // one smooth westward curve: a quadratic Bézier on the sphere, bent toward Europe, from India to Laguna
+  const V = ([lo, la]) => [Math.cos(la * DEG) * Math.cos(lo * DEG), Math.cos(la * DEG) * Math.sin(lo * DEG), Math.sin(la * DEG)];
+  const LL = ([x, y, z]) => { const m = Math.hypot(x, y, z); return [Math.atan2(y, x) / DEG, Math.asin(z / m) / DEG]; };
+  const P0 = V(START), P2 = V(LAG), PC = V(EU).map(v => v * 1.18);
+  const bez = t => [0, 1, 2].map(i => (1 - t) * (1 - t) * P0[i] + 2 * (1 - t) * t * PC[i] + t * t * P2[i]);
+  const NR = 160, raw = []; for (let i = 0; i <= NR; i++) raw.push(LL(bez(i / NR)));
+  const arcLen = [0]; for (let i = 1; i <= NR; i++) arcLen.push(arcLen[i - 1] + d3.geoDistance(raw[i - 1], raw[i]));
+  const journey = t => { const d = clamp(t) * arcLen[NR]; let i = 1; while (i < NR && arcLen[i] < d) i++; return d3.geoInterpolate(raw[i - 1], raw[i])((d - arcLen[i - 1]) / ((arcLen[i] - arcLen[i - 1]) || 1)); };
+  const route = []; for (let i = 0; i <= 120; i++) route.push(journey(i / 120));
+  const lift = t => .14 * Math.sin(Math.PI * t);      // the flight path rises off the globe and lands again
+
+  /* ---- noise ---- */
+  function hash3(x, y, z) { let h = (Math.imul(x, 374761393) + Math.imul(y, 668265263) + Math.imul(z, 1274126177)) | 0; h = Math.imul(h ^ (h >>> 13), 1274126177); return ((h ^ (h >>> 16)) >>> 0) / 4294967295; }
+  function vn3(x, y, z) {
+    const xi = Math.floor(x), yi = Math.floor(y), zi = Math.floor(z), xf = x - xi, yf = y - yi, zf = z - zi;
+    const u = xf * xf * (3 - 2 * xf), v = yf * yf * (3 - 2 * yf), w = zf * zf * (3 - 2 * zf);
+    const a = lerp(hash3(xi, yi, zi), hash3(xi + 1, yi, zi), u), b = lerp(hash3(xi, yi + 1, zi), hash3(xi + 1, yi + 1, zi), u);
+    const c = lerp(hash3(xi, yi, zi + 1), hash3(xi + 1, yi, zi + 1), u), d = lerp(hash3(xi, yi + 1, zi + 1), hash3(xi + 1, yi + 1, zi + 1), u);
+    return lerp(lerp(a, b, v), lerp(c, d, v), w);
+  }
+  function fbm(x, y, z, o) { let s = 0, n = 0, a = .5, f = 1; for (let i = 0; i < o; i++) { s += a * vn3(x * f, y * f, z * f); n += a; a *= .5; f *= 2.03; } return s / n; }
+  const g = (x, m, sd) => Math.exp(-((x - m) * (x - m)) / (2 * sd * sd));
+
+  /* ---- terrain texture (equirectangular), built in small chunks so the page never stalls ---- */
+  const TW = 1024, TH = 512, elev = new Float32Array(TW * TH), tex = new Uint8ClampedArray(TW * TH * 3);
+  let texReady = false;
+  // pastel terrain drawn from the site palette: cream sands, peach savanna, mint-aqua greens, blush highlands
+  const C = { sand: [248, 234, 210], savanna: [246, 226, 206], grass: [226, 238, 218], forest: [205, 232, 222], tundra: [240, 234, 226], rock: [246, 208, 200], snow: [255, 252, 246] };
+  const mixc = (a, b, t) => [lerp(a[0], b[0], t), lerp(a[1], b[1], t), lerp(a[2], b[2], t)];
+  const moist = new Float32Array(TW * TH);
+  function buildRows(j0, j1, pass) {
+    for (let j = j0; j < j1; j++) {
+      const lat = 90 - (j + .5) / TH * 180, cl = Math.cos(lat * DEG), sl = Math.sin(lat * DEG);
+      for (let i = 0; i < TW; i++) {
+        const k = j * TW + i;
+        if (pass === 1) {
+          const lon = (i + .5) / TW * 360 - 180, x = cl * Math.cos(lon * DEG), y = cl * Math.sin(lon * DEG), z = sl;
+          const base = fbm(x * 1.7 + 3, y * 1.7, z * 1.7, 6);
+          const r = 1 - Math.abs(2 * fbm(x * 3.3, y * 3.3 + 7, z * 3.3, 4) - 1);
+          elev[k] = clamp(.62 * base + .38 * r * r);
+          moist[k] = fbm(x * 2.1 + 11, y * 2.1, z * 2.1 - 5, 4) - .32 * g(Math.abs(lat), 24, 7) + .16 * g(lat, 2, 11);
+        } else {
+          const e = elev[k], m = moist[k], t = cl - e * .35;
+          let c = m < .4 ? mixc(C.sand, C.savanna, smooth(.32, .42, m)) : m < .5 ? mixc(C.savanna, C.grass, smooth(.4, .5, m)) : mixc(C.grass, C.forest, smooth(.5, .62, m));
+          c = mixc(c, C.tundra, 1 - smooth(.3, .5, t));
+          c = mixc(c, C.rock, smooth(.6, .72, e));
+          c = mixc(c, C.snow, Math.max(smooth(.78, .86, e), 1 - smooth(.18, .3, t)));
+          const ip = j * TW + ((i + TW - 1) % TW), inx = j * TW + ((i + 1) % TW), jp = Math.max(0, j - 1) * TW + i, jn = Math.min(TH - 1, j + 1) * TW + i;
+          const sh = clamp(1 + (elev[ip] - elev[inx] + elev[jp] - elev[jn]) * 6, .9, 1.06);
+          tex[k * 3] = c[0] * sh; tex[k * 3 + 1] = c[1] * sh; tex[k * 3 + 2] = c[2] * sh;
+        }
+      }
+    }
+  }
+
+
+  /* ---- per-frame terrain raster via inverse orthographic, upscaled under a crisp coastline clip ---- */
+  const buf = document.createElement("canvas"), bctx = buf.getContext("2d");
+  let img = null, key = "";
+  function vn2(x, y) {
+    const xi = Math.floor(x), yi = Math.floor(y), xf = x - xi, yf = y - yi, u = xf * xf * (3 - 2 * xf), v = yf * yf * (3 - 2 * yf);
+    return lerp(lerp(hash3(xi, yi, 9), hash3(xi + 1, yi, 9), u), lerp(hash3(xi, yi + 1, 9), hash3(xi + 1, yi + 1, 9), u), v);
+  }
+  function raster(lon0, lat0, s) {
+    const k = `${lon0.toFixed(3)}|${lat0.toFixed(3)}|${s.toFixed(1)}|${W}|${H}|${texReady}`;
+    if (k === key) return; key = k;
+    const maxPx = innerWidth < 700 ? 56000 : 96000, sc = Math.min(1, Math.sqrt(maxPx / (W * H)));
+    const bw = Math.max(2, Math.round(W * sc)), bh = Math.max(2, Math.round(H * sc));
+    if (buf.width !== bw || buf.height !== bh) { buf.width = bw; buf.height = bh; img = bctx.createImageData(bw, bh); }
+    const d = img.data, sp = Math.sin(lat0 * DEG), cp = Math.cos(lat0 * DEG), cx = bw / 2, cy = bh / 2, ss = s * sc;
+    const detail = smooth(3, 40, s / R0), fq = s * DEG / 9;
+    for (let y = 0; y < bh; y++) {
+      const Y = -(y + .5 - cy) / ss;
+      for (let x = 0; x < bw; x++) {
+        const o = (y * bw + x) * 4, X = (x + .5 - cx) / ss, r2 = X * X + Y * Y;
+        if (r2 > 1) { d[o + 3] = 0; continue; }
+        const z = Math.sqrt(1 - r2);
+        const lat = Math.asin(clamp(z * sp + Y * cp, -1, 1)) / DEG;
+        let lon = lon0 + Math.atan2(X, z * cp - Y * sp) / DEG;
+        lon = ((lon + 180) % 360 + 360) % 360;
+        let R = 246, G = 232, B = 212;
+        if (texReady) {
+          const u = lon / 360 * TW - .5, v = (90 - lat) / 180 * TH - .5, i0 = Math.floor(u), j0 = clamp(Math.floor(v), 0, TH - 2), fu = u - i0, fv = clamp(v - j0, 0, 1);
+          const a = (j0 * TW + ((i0 % TW) + TW) % TW) * 3, b = (j0 * TW + ((i0 + 1) % TW + TW) % TW) * 3, c2 = a + TW * 3, e2 = b + TW * 3;
+          R = lerp(lerp(tex[a], tex[b], fu), lerp(tex[c2], tex[e2], fu), fv);
+          G = lerp(lerp(tex[a + 1], tex[b + 1], fu), lerp(tex[c2 + 1], tex[e2 + 1], fu), fv);
+          B = lerp(lerp(tex[a + 2], tex[b + 2], fu), lerp(tex[c2 + 2], tex[e2 + 2], fu), fv);
+        }
+        if (detail > 0) {
+          const nx = lon * fq, ny = lat * fq, n1 = vn2(nx, ny), n2 = vn2(nx * 2.1 + 5, ny * 2.1), hs = vn2(nx + .35, ny + .35);
+          const m = 1 + detail * ((n1 - .5) * .07 + (n2 - .5) * .04 + (n1 - hs) * .12);
+          R *= m; G *= m; B *= m;
+        }
+        d[o] = R; d[o + 1] = G; d[o + 2] = B; d[o + 3] = 255;
+      }
+    }
+    bctx.putImageData(img, 0, 0);
+  }
+
+  let W = 1, H = 1, R0 = 1, last = 0, visible = false;
+  function size() {
+    const D = Math.min(devicePixelRatio || 1, 2); W = box.clientWidth; H = box.clientHeight;
+    cv.width = Math.round(W * D); cv.height = Math.round(H * D); ctx.setTransform(D, 0, 0, D, 0, 0);
+    R0 = Math.min(W, H) * .4; key = "";
+  }
+  size(); addEventListener("resize", () => { size(); draw(last); });
+
+  function draw(p) {
+    last = p;
+    const e1 = smooth(0, .44, p), e2 = smooth(.38, .97, p);
+    const [lon, lat] = journey(e1);
+    const sFinal = W / (2.8 / 6371);               // about 2.8 km across at the end
+    const breathe = 1 - .12 * Math.sin(Math.PI * e1) * (1 - e2);            // pull back a little mid-flight
+    const s = R0 * breathe * Math.exp(Math.log(sFinal / R0) * e2), cx = W / 2, cy = H / 2;
+    proj.scale(s).translate([cx, cy]).rotate([-lon, -lat]);
+    const km = W / s * 6371;
+    ctx.clearRect(0, 0, W, H);
+    // ocean
+    const oc = ctx.createRadialGradient(cx - s * .35, cy - s * .4, s * .05, cx, cy, s);
+    oc.addColorStop(0, "#D2E6E1"); oc.addColorStop(1, "#D2E6E1");
+    ctx.beginPath(); path(sphere); ctx.fillStyle = oc; ctx.fill();
+    const lf = s > R0 * 40 ? local : s > R0 * 4 ? west : land;
+    // shallow water along every coast
+    ctx.save(); ctx.beginPath(); path(sphere); ctx.clip();
+    ctx.beginPath(); path(lf); ctx.lineJoin = "round";
+    ctx.strokeStyle = "rgba(231,244,240,.6)"; ctx.lineWidth = clamp(s * .03, 3, 26); ctx.stroke();
+    ctx.strokeStyle = "rgba(243,250,248,.7)"; ctx.lineWidth = clamp(s * .012, 1.5, 11); ctx.stroke();
+    ctx.restore();
+    // terrain, clipped to the land shapes so coastlines stay sharp
+    // land: flat pastel regions (plains, sand, forest, highlands, snow, lakes) — the same colours at every zoom
+    ctx.beginPath(); path(lf); ctx.fillStyle = "#D6E2C4"; ctx.fill();
+    if (window.BIOMES) {
+      ctx.save(); ctx.beginPath(); path(lf); ctx.clip();
+      for (const k of BIOMES.order) { ctx.beginPath(); path(BIOMES[k]); ctx.fillStyle = CLIMATE[k]; ctx.fill(); }
+      ctx.restore();
+      ctx.beginPath(); path(BIOMES.lakes); ctx.fillStyle = "#D2E6E1"; ctx.fill();
+    }
+    // sandy beach and a white surf line once we're close
+    const near = smooth(60, 8, km);
+    if (near > 0) {
+      ctx.save(); ctx.beginPath(); path(lf); ctx.clip();
+      ctx.beginPath(); path(lf); ctx.strokeStyle = `rgba(252,240,220,${near})`; ctx.lineWidth = clamp(70 / 6371000 * s, 2, 18); ctx.stroke();
+      ctx.restore();
+      ctx.beginPath(); path(lf); ctx.strokeStyle = `rgba(255,255,255,${.9 * near})`; ctx.lineWidth = 1.3; ctx.stroke();
+    }
+    ctx.beginPath(); path(lf); ctx.strokeStyle = `rgba(200,150,130,${.35 * (1 - near)})`; ctx.lineWidth = .7; ctx.stroke();
+    // streets, trees and the clubhouse at street level
+    const st = smooth(16, 6, km);
+    if (st > 0) {
+      ctx.lineCap = "round"; ctx.lineJoin = "round";
+      const road = (g, w, col) => { ctx.beginPath(); path(g); ctx.strokeStyle = "rgba(255,253,248," + st + ")"; ctx.lineWidth = w + 2.5; ctx.stroke(); ctx.strokeStyle = col.replace("A", st); ctx.lineWidth = w; ctx.stroke(); };
+      ROADS.cross.forEach(g => road(g, 2.4, "rgba(234,196,178,A)"));
+      road(ROADS.third, 2.4, "rgba(234,196,178,A)");
+      road(ROADS.glen, 3.4, "rgba(232,184,164,A)");
+      road(ROADS.stAnn, 3.6, "rgba(226,160,150,A)");
+      road(ROADS.hwy, 5, "rgba(240,189,178,A)");
+      const tz = clamp(1.4 * 6 / km, .6, 1.6);
+      for (const [pt, k, alt] of TREES) {
+        if (d3.geoDistance([lon, lat], pt) > 1.5) continue;
+        const [x, y] = proj(pt); if (x < -10 || y < -10 || x > W + 10 || y > H + 10) continue;
+        const r = 2.2 * k * tz;
+        ctx.fillStyle = alt ? `rgba(160,184,158,${.34 * st})` : `rgba(146,174,150,${.28 * st})`; ctx.beginPath(); ctx.arc(x, y, r, 0, 6.283); ctx.fill();
+      }
+      // street labels
+      const lab = (txt, a, d, size) => { const p1 = proj(along(a, d)), p2 = proj(along(a + 60, d)); ctx.save(); ctx.translate(p1[0], p1[1]); ctx.rotate(Math.atan2(p2[1] - p1[1], p2[0] - p1[0])); ctx.globalAlpha = st * .85; ctx.fillStyle = "#55696B"; ctx.font = `500 ${size - 1}px Jost, system-ui, sans-serif`; if ("letterSpacing" in ctx) ctx.letterSpacing = "2px"; ctx.fillText(txt, 0, -5); if ("letterSpacing" in ctx) ctx.letterSpacing = "0px"; ctx.restore(); };
+      lab("COAST HWY", aV - 900, 230, 10); lab("GLENNEYRE ST", aV + 500, 560, 9);
+      const sea = proj(along(aV - 300, -Math.min(900, km * 220)));
+      ctx.globalAlpha = st; ctx.fillStyle = "#386B65"; ctx.font = 'italic 500 20px "EB Garamond", Georgia, serif'; ctx.textAlign = "center"; ctx.fillText("Pacific Ocean", sea[0], sea[1]); ctx.textAlign = "left"; ctx.globalAlpha = 1;
+    }
+    // light and shadow so it reads as a sphere
+    const sh = ctx.createRadialGradient(cx - s * .32, cy - s * .38, s * .1, cx, cy, s * 1.02);
+    sh.addColorStop(0, "rgba(255,255,255,.22)"); sh.addColorStop(.55, "rgba(255,255,255,0)"); sh.addColorStop(1, "rgba(36,57,59,.32)");
+    ctx.beginPath(); path(sphere); ctx.fillStyle = sh; ctx.fill();
+    // stops along the way
+    const dot = (pt, col, r) => { if (d3.geoDistance([lon, lat], pt) < 1.5) { const [x, y] = proj(pt); ctx.fillStyle = col; ctx.beginPath(); ctx.arc(x, y, r, 0, 6.283); ctx.fill(); ctx.strokeStyle = "#FFFBF2"; ctx.lineWidth = 1.2; ctx.stroke(); } };
+    dot(START, `rgba(56,107,101,${1 - e2})`, 3.5);
+    // the flight path: an arc lifted off the globe; travelled part solid, the rest dotted
+    const ra = 1 - smooth(.36, .5, p);
+    if (ra > 0) {
+      const lifted = (t, pt) => { const q = proj(pt), h = 1 + lift(t); return [cx + (q[0] - cx) * h, cy + (q[1] - cy) * h]; };
+      const seen = (t, pt) => d3.geoDistance([lon, lat], pt) < Math.PI / 2 + Math.acos(1 / (1 + lift(t)));
+      const seg = (i0, i1) => { ctx.beginPath(); let on = false; for (let i = i0; i <= i1; i++) { const t = i / 120; if (!seen(t, route[i])) { on = false; continue; } const [x, y] = lifted(t, route[i]); on ? ctx.lineTo(x, y) : ctx.moveTo(x, y); on = true; } };
+      const n = Math.round(e1 * 120);
+      ctx.lineCap = "round"; ctx.lineJoin = "round";
+      // a faint shadow of the route on the ground
+      ctx.beginPath(); path({ type: "LineString", coordinates: route }); ctx.strokeStyle = `rgba(36,57,59,${.08 * ra})`; ctx.lineWidth = 1; ctx.stroke();
+      seg(n, 120); ctx.setLineDash([2, 5]); ctx.strokeStyle = `rgba(139,44,58,${.8 * ra})`; ctx.lineWidth = 1.4; ctx.stroke(); ctx.setLineDash([]);
+      if (n > 0) { seg(0, n); ctx.strokeStyle = `rgba(139,44,58,${.95 * ra})`; ctx.lineWidth = 2; ctx.stroke(); }
+      if (e1 > 0 && e1 < 1 && seen(e1, journey(e1))) { const [x, y] = lifted(e1, journey(e1)); ctx.fillStyle = "#FFFBF2"; ctx.beginPath(); ctx.arc(x, y, 4, 0, 6.283); ctx.fill(); ctx.fillStyle = "#8B2C3A"; ctx.beginPath(); ctx.arc(x, y, 2.2, 0, 6.283); ctx.fill(); }
+    }
+    // Laguna pin while flying in, then the clubhouse itself
+    const bl = smooth(9, 4, km);
+    if (d3.geoDistance([lon, lat], LAG) < 1.45) {
+      const [x, y] = proj(LAG), k = (performance.now() / 1400) % 1;
+      if (bl < 1) {
+        ctx.globalAlpha = 1 - bl;
+        ctx.strokeStyle = `rgba(139,44,58,${.7 * (1 - k)})`; ctx.lineWidth = 1.5;
+        ctx.beginPath(); ctx.arc(x, y, 5 + k * 16, 0, 6.283); ctx.stroke();
+        ctx.fillStyle = "#8B2C3A"; ctx.beginPath(); ctx.arc(x, y, 4.5, 0, 6.283); ctx.fill();
+        ctx.strokeStyle = "#FFFBF2"; ctx.lineWidth = 1.5; ctx.stroke();
+        const la = smooth(.3, .5, p);
+        if (la > 0) { ctx.globalAlpha = la * (1 - bl); ctx.fillStyle = "#24393B"; ctx.font = 'italic 500 17px "EB Garamond", Georgia, serif'; ctx.fillText("Laguna Beach", x + 12, y - 10); }
+        ctx.globalAlpha = 1;
+      }
+      if (bl > 0) {
+        ctx.save(); ctx.globalAlpha = bl;
+        ctx.strokeStyle = `rgba(139,44,58,${.55 * (1 - k)})`; ctx.lineWidth = 1.5;
+        ctx.beginPath(); ctx.arc(x, y, 18 + k * 22, 0, 6.283); ctx.stroke();
+        drawClub(x, y, clamp(1.05 + (3 - km) * .25, 1, 1.4));
+        ctx.fillStyle = "#24393B"; ctx.font = 'italic 500 19px "EB Garamond", Georgia, serif'; ctx.fillText("The Woman's Club", x + 30, y - 4);
+        ctx.fillStyle = "#55696B"; ctx.font = '500 9.5px Jost, system-ui, sans-serif'; if ("letterSpacing" in ctx) ctx.letterSpacing = "2.5px"; ctx.fillText("286 ST. ANN'S DRIVE", x + 31, y + 13); if ("letterSpacing" in ctx) ctx.letterSpacing = "0px";
+        ctx.restore();
+      }
+    }
+  }
+  // the venue marker: a small wax seal with the monogram
+  function drawClub(x, y, k) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(k, k);
+    ctx.fillStyle = "rgba(36,57,59,.16)"; ctx.beginPath(); ctx.ellipse(1.5, 3, 15, 15, 0, 0, 6.283); ctx.fill();
+    const g = ctx.createRadialGradient(-4, -5, 2, 0, 0, 16); g.addColorStop(0, "#A8404F"); g.addColorStop(1, "#6E1F2C");
+    ctx.fillStyle = g; ctx.beginPath();
+    for (let i = 0; i <= 48; i++) { const a = i / 48 * 6.283, r = 14 + Math.sin(a * 7) * .55 + Math.sin(a * 3 + 1) * .4; i ? ctx.lineTo(Math.cos(a) * r, Math.sin(a) * r) : ctx.moveTo(Math.cos(a) * r, Math.sin(a) * r); }
+    ctx.closePath(); ctx.fill();
+    ctx.strokeStyle = "rgba(255,240,236,.45)"; ctx.lineWidth = .8; ctx.beginPath(); ctx.arc(0, 0, 10, 0, 6.283); ctx.stroke();
+    ctx.fillStyle = "#FFF3EE"; ctx.font = 'italic 500 9.5px "EB Garamond", Georgia, serif'; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText("S&V", 0, .5);
+    ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
+    ctx.restore();
+  }
+  svg.style.opacity = 0; svg.setAttribute("aria-hidden", "true");
+  function set(p) {
+    draw(p);
+    const e1 = smooth(0, .44, p), km = W / (R0 * Math.exp(Math.log((W / (2.8 / 6371)) / R0) * smooth(.38, .97, p))) * 6371;
+    hint.textContent = e1 < .12 ? "India" : e1 < .45 ? "Toward Europe" : e1 < .75 ? "Across the Atlantic" : km > 2500 ? "North America" : km > 400 ? "Southern California" : km > 60 ? "Orange County coast" : km > 8 ? "Laguna Beach" : "St. Ann's Drive";
+  }
+  new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible) requestAnimationFrame(tick); }).observe(box);
+  function tick() { if (!visible) return; if (last > .3) draw(last); requestAnimationFrame(tick); }
+  return { set };
+})();
+
+/* the schedule heading stays pinned, and the beach scene pins right beneath it */
+(function () {
+  const head = $("#schedHead"), set = () => document.documentElement.style.setProperty("--sched-head", head.offsetHeight + "px");
+  set(); addEventListener("resize", set); if (document.fonts) document.fonts.ready.then(set);
+})();
+/* keep the space between sections equal around the pinned map scene, whatever the screen height */
+(function evenGaps() {
+  const probe = document.createElement("div"); probe.style.cssText = "position:absolute;visibility:hidden;height:var(--sub-gap)"; document.body.appendChild(probe);
+  const ms = $("#mapScene"), sticky = $(".map-sticky"), book = $("#bookSec"), tl = $("#timeline");
+  function fit() {
+    const G = probe.offsetHeight;
+    ms.style.marginTop = "0px"; book.style.paddingTop = ""; book.style.marginTop = "";
+    const kids = [...sticky.querySelectorAll(":scope > .wrap > *")].filter(e => e.offsetHeight);
+    const head = sticky.querySelector(".sub-head"), last = sticky.querySelector(".map-links");
+    const sTop = sticky.getBoundingClientRect().top;
+    const above = head.getBoundingClientRect().top - sTop, below = sticky.offsetHeight - (last.getBoundingClientRect().bottom - sTop);
+    const lastLi = tl.lastElementChild;
+    const gapBefore = ms.getBoundingClientRect().top - lastLi.getBoundingClientRect().bottom;
+    ms.style.marginTop = (G - gapBefore - above) + "px";
+    book.style.paddingTop = Math.max(0, G - below) + "px"; book.style.marginTop = Math.min(0, G - below) + "px";
+  }
+  fit(); addEventListener("resize", fit); if (document.fonts) document.fonts.ready.then(fit); addEventListener("load", fit);
+})();
+/* ---------------- day scroll scenes: sky + map ---------------- */
+(function () {
+  const tl = $("#timeline"), tlFill = $("#tlFill"), tlItems = $$("#timeline li");
+  const sky = $("#sky"), sun = $("#sun"), sunGlow = $("#sunGlow"), stars = $("#stars"), skyTime = $("#skyTime"), skyWhat = $("#skyWhat");
+  const moon = $("#moon"), dusk = $("#dusk"), glint = $("#glint"), glint2 = $("#glint2"), palms = $("#palms");
+  const mapScene = $("#mapScene");
+  const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+  const mix = (a, b, t) => { const A = hex(a), B = hex(b); return `rgb(${A.map((v, i) => Math.round(lerp(v, B[i], t))).join(",")})`; };
+  const mins = t => { const m = t.match(/(\d+):(\d+)\s*(AM|PM)/i); let h = +m[1] % 12; if (/PM/i.test(m[3])) h += 12; return h * 60 + +m[2]; };
+  const fmt = m => { m = Math.round(m / 5) * 5; let h = Math.floor(m / 60), mm = m % 60, ap = h >= 12 ? "PM" : "AM"; h = h % 12 || 12; return `${h}:${String(mm).padStart(2, "0")} ${ap}`; };
+  const TIMES = CONFIG.schedule.map(s => mins(s.t));
+  // sky colours by clock time: afternoon blue, golden, sunset at 4:47, dusk, dark by 7:30, fully dark by 9
+  const SKY = [[930, "#AAD4C9", "#F3E8CB"], [975, "#C7DBD6", "#FBE6C2"], [995, "#F2C6B4", "#FBDDBE"], [1007, "#F2A7A9", "#F9C9A4"],
+               [1030, "#9B8AA8", "#E7A6A2"], [1065, "#4D5A7C", "#A7849A"], [1170, "#1A2440", "#2E3858"], [1260, "#0A1222", "#111A2C"]];
+  function skyAt(m) { if (m <= SKY[0][0]) return [SKY[0][1], SKY[0][2]]; for (let i = 1; i < SKY.length; i++) if (m <= SKY[i][0]) { const t = (m - SKY[i - 1][0]) / (SKY[i][0] - SKY[i - 1][0]); return [mix(SKY[i - 1][1], SKY[i][1], t), mix(SKY[i - 1][2], SKY[i][2], t)]; } const L = SKY[SKY.length - 1]; return [L[1], L[2]]; }
+  const ramp = (m, pts) => { if (m <= pts[0][0]) return pts[0][1]; for (let i = 1; i < pts.length; i++) if (m <= pts[i][0]) return lerp(pts[i - 1][1], pts[i][1], (m - pts[i - 1][0]) / (pts[i][0] - pts[i - 1][0])); return pts[pts.length - 1][1]; };
+  onScroll(() => {
+    const vh = innerHeight, trig = vh * .6;
+    // when the scene stops being pinned at the end of the schedule, the heading leaves with it
+    { const hd = $("#schedHead"), want = hd.offsetHeight + (innerWidth > 860 ? 8 : 0), top = sky.getBoundingClientRect().top - (parseFloat(getComputedStyle(sky).top) - want);
+      const lift = Math.min(0, sky.getBoundingClientRect().top - parseFloat(getComputedStyle(sky).top));
+      hd.style.transform = lift < 0 ? `translateY(${lift}px)` : ""; }
+    let r = tl.getBoundingClientRect();
+    // anything in the timeline that has scrolled up past the pinned heading (desktop) or the pinned scene (phones) is cut away
+    // anything scrolling up under the pinned heading (desktop) or the pinned scene (tablets, phones) fades out softly before it gets there
+    { const wide = innerWidth > 860, barrier = wide ? $("#schedHead").getBoundingClientRect().bottom - 8 : sky.getBoundingClientRect().bottom + 18;
+      const cut = Math.max(0, barrier - r.top), fade = wide ? 34 : 40;
+      const m = cut > 0 ? `linear-gradient(to bottom, transparent ${cut}px, #000 ${cut + fade}px)` : "";
+      tl.style.clipPath = ""; tl.style.webkitMaskImage = m; tl.style.maskImage = m; }
+    const ps = REDUCED ? 0 : clamp((trig - r.top) / r.height);
+    tlFill.style.transform = `scaleY(${ps})`;
+    // clock time follows the trigger line through the schedule, easing between items
+    const tops = tlItems.map(li => li.getBoundingClientRect().top);
+    let ai = 0, m = TIMES[0];
+    tlItems.forEach((li, i) => { const on = tops[i] < trig; li.classList.toggle("on", on || REDUCED); if (on) ai = i; });
+    if (!REDUCED) {
+      if (tops[0] >= trig) m = TIMES[0];
+      else if (ai >= TIMES.length - 1) m = TIMES[TIMES.length - 1];
+      else m = lerp(TIMES[ai], TIMES[ai + 1], clamp((trig - tops[ai]) / (tops[ai + 1] - tops[ai])));
+    }
+    const [c1, c2] = skyAt(m); sky.style.setProperty("--sky1", c1); sky.style.setProperty("--sky2", c2);
+    sky.style.setProperty("--sky-ink", m > 1022 ? "#FBF6EA" : "#24393B");
+    // the sun slides from high on the left to below the sea horizon on the right, setting at 4:47
+    const k = clamp((m - 930) / (1007 - 930)), sx = lerp(150, 300, k), sy = lerp(120, 330, Math.pow(k, 1.35)) + (m > 1007 ? (m - 1007) * 1.6 : 0);
+    sun.setAttribute("cx", sx); sun.setAttribute("cy", sy); sunGlow.setAttribute("cx", sx); sunGlow.setAttribute("cy", sy);
+    sun.setAttribute("fill", mix("#FFF4DE", "#FFB98F", smooth(970, 1007, m)));
+    const low = smooth(975, 1000, m) * (1 - smooth(1008, 1022, m));
+    glint.setAttribute("cx", sx); glint.setAttribute("opacity", (.85 * low).toFixed(2));
+    glint2.setAttribute("transform", `translate(${sx - 300} 0)`); glint2.setAttribute("opacity", (.6 * low).toFixed(2));
+    const night = ramp(m, [[1007, 0], [1040, .3], [1170, .72], [1260, .9]]);
+    dusk.setAttribute("opacity", night.toFixed(3)); palms.setAttribute("color", mix("#7E9C8A", "#1A2333", night / .9));
+    stars.setAttribute("opacity", ramp(m, [[1025, 0], [1100, .45], [1170, .85], [1260, 1]]).toFixed(2));
+    moon.setAttribute("opacity", ramp(m, [[1080, 0], [1170, .9], [1260, 1]]).toFixed(2));
+    skyTime.textContent = REDUCED ? CONFIG.schedule[ai].t : fmt(m); skyWhat.textContent = CONFIG.schedule[ai].h;
+    r = mapScene.getBoundingClientRect();
+    const pm = REDUCED ? 1 : clamp(-r.top / (r.height - vh));
+    if (GLOBE) GLOBE.set(pm); else MAP.set(pm);
+  });
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RSVP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..600;1,400..600&family=Jost:wght@300;400;500;600&family=Pinyon+Script&display=swap">
+<link rel="stylesheet" href="site.css">
+<script>try{history.scrollRestoration="manual"}catch(e){}try{if(sessionStorage.getItem("vt")){document.documentElement.classList.add("vt-in");sessionStorage.removeItem("vt")}}catch(e){}</script>
+</head>
+<body data-page="rsvp.html" class="page-rsvp">
+<div class="veil" aria-hidden="true"></div>
+<main>
+<!-- ================= RSVP ================= -->
+<section id="rsvp" class="page rsvp">
+  <canvas class="wash" id="rsvpWash" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <header class="page-head reveal">
+        <span class="eyebrow">RSVP</span>
+        <h1>Will you join us?</h1>
+        <p class="lede">We're collecting replies on Zola. It takes about a minute.</p>
+      </header>
+    <div class="rsvp-card reveal">
+      <p class="q">Kindly reply</p>
+      <p class="by">by <span data-bind="rsvp-by"></span></p>
+      <a class="magnet" id="rsvpBtn" data-href="zola" target="_blank" rel="noopener"><span>RSVP on Zola</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <p class="rsvp-small">Your RSVP opens on Zola in a new tab. Look up your name, and you'll see everyone on your invitation.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+<div id="nextSlot"></div>
+<script src="site.js"></script>
+<script>
+/* ---------------- RSVP magnet + confetti ---------------- */
+(function () {
+  const b = $("#rsvpBtn");
+  if (!REDUCED && matchMedia("(hover:hover)").matches) {
+    b.addEventListener("pointermove", e => { const r = b.getBoundingClientRect(); b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .25}px,${(e.clientY - r.top - r.height / 2) * .35}px)`; });
+    b.addEventListener("pointerleave", () => { b.style.transform = ""; });
+  }
+  b.addEventListener("click", () => { const r = b.getBoundingClientRect(); confetti(r.left + r.width / 2, r.top, 120); });
+})();
+
+</script>
+</body>
+</html>

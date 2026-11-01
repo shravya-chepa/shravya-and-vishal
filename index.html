@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Shravya & Vishal · Friday, December 18, 2026 · The Woman's Club of Laguna Beach">
+<title>Shravya &amp; Vishal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..600;1,400..600&family=Jost:wght@300;400;500;600&family=Pinyon+Script&display=swap">
+<link rel="stylesheet" href="site.css">
+<script>try{history.scrollRestoration="manual"}catch(e){}try{if(sessionStorage.getItem("vt")){document.documentElement.classList.add("vt-in");sessionStorage.removeItem("vt")}}catch(e){}</script>
+</head>
+<body data-page="index.html" class="page-land page-day">
+<div class="veil" aria-hidden="true"></div>
+<main>
+<!-- ================= WELCOME (landing page) ================= -->
+<section id="welcome" class="page land">
+  <div class="wrap">
+    <header class="page-head reveal">
+      <span class="eyebrow land-rule" aria-hidden="true"><i></i></span>
+      <h1>We're getting married!</h1>
+      <p class="lede">Thank you for stopping by. We've gathered everything you'll need for our day here: the plans, the place, and a little of our story. We can't wait to celebrate with you.</p>
+    </header>
+
+    <!-- space reserved for the landing animation we'll add later -->
+    <div class="land-anim" id="landAnim" aria-hidden="true"></div>
+
+    <figure class="us-fig reveal">
+      <div class="us-frame">
+        <div class="us-photo">
+          <img src="us.jpg" alt="Shravya and Vishal holding hands on the grass by the water at golden hour" width="960" height="1200">
+          <div class="us-empty" aria-hidden="true"><span class="ue-mono">S<i>&amp;</i>V</span><span class="ue-note">Your photo goes here</span></div>
+        </div>
+      </div>
+      <figcaption><span class="us-names"><span data-bind="first1"></span> <i>&amp;</i> <span data-bind="first2"></span></span><span class="us-sub">Friday, December 18, 2026 · Laguna Beach</span></figcaption>
+    </figure>
+
+    <div class="land-cta reveal">
+      <a class="btn solid" href="invitation.html">Open your invitation</a>
+      <span class="land-count" id="landCount"></span>
+    </div>
+  </div>
+</section>
+</main>
+<div id="nextSlot"></div>
+<script src="site.js"></script>
+<script>
+(function () {
+  $$("[data-bind=first1]").forEach(e => e.textContent = F1);
+  $$("[data-bind=first2]").forEach(e => e.textContent = F2);
+  const days = Math.ceil((new Date(CONFIG.ceremony) - Date.now()) / 864e5);
+  $("#landCount").textContent = days > 1 ? `${days} days to go` : days === 1 ? "Tomorrow" : days === 0 ? "Today" : "Just married";
+})();
+</script>
+</body>
+</html>

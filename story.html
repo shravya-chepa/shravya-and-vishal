@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Our Story</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..600;1,400..600&family=Jost:wght@300;400;500;600&family=Pinyon+Script&display=swap">
+<link rel="stylesheet" href="site.css">
+<script>try{history.scrollRestoration="manual"}catch(e){}try{if(sessionStorage.getItem("vt")){document.documentElement.classList.add("vt-in");sessionStorage.removeItem("vt")}}catch(e){}</script>
+</head>
+<body data-page="story.html" class="page-story">
+<div class="veil" aria-hidden="true"></div>
+<main>
+<!-- ================= OUR STORY ================= -->
+<section id="story">
+  <div class="park" id="park">
+    <div class="park-stick">
+      <header class="park-head">
+        <span class="eyebrow">Our Story</span>
+        <h1>Where it all began</h1>
+      </header>
+      <svg class="park-svg" id="parkSvg" viewBox="40 40 1370 534" role="img" aria-label="An illustration of the two of us on a bench in the park beneath a lamp and a tree, with two mourning doves on a branch"></svg>
+      <div class="park-nav">
+        <button class="park-arrow pa-prev" id="parkPrev" aria-label="Previous picture"><svg viewBox="0 0 12 12"><path d="M7.5 2.5L4 6l3.5 3.5"/></svg></button>
+        <div class="park-dots" id="parkDots" aria-hidden="true"></div>
+        <button class="park-arrow pa-next" id="parkNext" aria-label="Next picture"><svg viewBox="0 0 12 12"><path d="M4.5 2.5L8 6l-3.5 3.5"/></svg></button>
+      </div>
+      <div class="park-story">
+        <p>For years, we moved in the same circles without really knowing each other. That changed at a dinner party during our final semester of grad school, where one conversation turned into a friendship, and eventually, something more.</p>
+        <p>Somewhere along the way, a little dog park on Montezuma Road in San Diego became our favorite place. What started as casual hangouts turned into unplanned dates, endless conversations, and finally, the decision to be together.</p>
+        <p>Looking back, it wasn&rsquo;t one big moment that brought us here, but all the little ones. And somewhere along the way, we became us.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+<div id="nextSlot"></div>
+<script src="site.js"></script>
+<script src="tree.js"></script>
+<script src="park.js"></script>
+<script>
+/* ---------------- story: the park ---------------- */
+(function park() {
+  const tw = (x, y, k = 1) => `<path class="twinkle" d="M${x} ${y - 4 * k}q${.7 * k} ${3.3 * k} ${4 * k} ${4 * k}q${-3.3 * k} ${.7 * k} ${-4 * k} ${4 * k}q${-.7 * k} ${-3.3 * k} ${-4 * k} ${-4 * k}q${3.3 * k} ${-.7 * k} ${4 * k} ${-4 * k}z" fill="#E9C987"/>`;
+  const heart = (x, y) => `<path class="float" d="M${x} ${y}c-3-4 -9-3 -9 2c0 4 5 7 9 10c4-3 9-6 9-10c0-5 -6-6 -9-2z" fill="#A8404F" opacity=".9"/>`;
+  const svg = $("#parkSvg"), scene = parkScene(svg, {
+    images: [1, 2, 3, 4, 5, 6, 7, 8].map(n => `couple-${n}.webp`),
+    scale: [1.17, 1.18, 1.28, 1.18, 1.15, 1.13, 1.24, 1.18],   // evens out how large the two of us are drawn in each illustration
+    extras: ["", "", "", "", tw(420, 200, 1.3) + tw(662, 186) + tw(550, 150, .9), "", tw(424, 196) + tw(656, 176, 1.2) + tw(548, 146, .8), heart(538, 150)]
+  });
+  // frame the whole composition (lamp, bench, tree). The tree's crown may rise beside the title, but never into it or the menu:
+  // the frame grows upward until it clears both. On phones, frame closer: the lamp, the bench, the two of us and the doves' branch.
+  const lobes = [...svg.querySelectorAll(".lobe")], stick = $(".park-stick"), title = $(".park-head h1");
+  const frame = () => {
+    const phone = innerWidth < 640, box = svg.parentNode.getBoundingClientRect();
+    // wide screens see the whole composition; taller, narrower ones (tablets held upright) a closer crop so we aren't drawn too small
+    const [x, w] = phone ? [216, 760] : innerWidth / Math.max(1, innerHeight) < 1.05 ? [150, 1000] : [40, 1370], bottom = 574;
+    const navEls = $$(".mast > *").filter(e => e.offsetParent), sTop = stick.getBoundingClientRect().top;
+    const parkTop = $("#park").getBoundingClientRect().top + scrollY;
+    const navB = navEls.length ? Math.max(...navEls.map(e => e.getBoundingClientRect().bottom)) + scrollY - parkTop : 0;   // the menu, measured from the top of the pinned scene
+    let y = phone ? 60 : 40;
+    for (let i = 0; i < 40; i++) {
+      svg.setAttribute("viewBox", `${x} ${y} ${w} ${bottom - y}`);
+      if (phone) svg.style.aspectRatio = `${w} / ${bottom - y}`; else svg.style.aspectRatio = "";
+      // each lobe of the crown, padded for the leaves that fringe it
+      const t = title.getBoundingClientRect(), rs = lobes.map(l => { const r = l.getBoundingClientRect(), m = r.height * .22; return { top: r.top - m, left: r.left - m, right: r.right + m }; });
+      const top = Math.min(...rs.map(r => r.top)) - sTop;
+      const hitsTitle = rs.some(r => r.top < t.bottom + 10 && r.left < t.right + 16 && r.right > t.left - 16);
+      if (top >= navB + 14 && !hitsTitle) break;
+      y -= 14;
+    }
+  };
+  frame(); addEventListener("resize", frame);
+  // the eight moments play on their own, one every few seconds; the arrows and dots still step through them by hand
+  const dots = $("#parkDots"), prev = $("#parkPrev"), next = $("#parkNext"), N = scene.count;
+  dots.innerHTML = Array.from({ length: N }, (_, i) => `<i${i ? "" : ' class="on"'}></i>`).join("");
+  const dotEls = $$("i", dots);
+  let cur = 0, timer = 0, visible = true;
+  const show = k => { cur = (k + N) % N; dotEls.forEach((d, i) => d.classList.toggle("on", i === cur)); scene.set(cur); };
+  const HOLD = 4200;
+  const stop = () => { clearTimeout(timer); timer = 0; };
+  const play = () => { stop(); if (REDUCED || !visible || document.hidden) return; timer = setTimeout(() => { show(cur + 1); play(); }, HOLD); };
+  prev.addEventListener("click", () => { show(cur - 1); play(); });
+  next.addEventListener("click", () => { show(cur + 1); play(); });
+  // only while the scene is on screen and the tab is in view
+  new IntersectionObserver(es => { visible = es[0].isIntersecting; visible ? play() : stop(); }, { threshold: .35 }).observe(svg);
+  document.addEventListener("visibilitychange", () => document.hidden ? stop() : play());
+  play();
+})();
+</script>
+</body>
+</html>
