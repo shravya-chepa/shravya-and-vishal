@@ -364,7 +364,7 @@ const PAGE = document.body.dataset.page || "index.html";
         `<span class="foot-names">${esc(F1)} <i>&amp;</i> ${esc(F2)}</span>` +
         `<svg class="foot-orn" viewBox="0 0 120 12" aria-hidden="true"><path d="M2 6h44M74 6h44"/><path d="M60 1.5l4.5 4.5L60 10.5 55.5 6z"/><circle cx="50" cy="6" r="1.2"/><circle cx="70" cy="6" r="1.2"/></svg>` +
         `<span class="foot-meta"><span>Friday, December 18, 2026</span><b>·</b><span>Laguna Beach, California</span></span>` +
-        `<span class="foot-small">Thank you for being part of our day</span>` +
+        `<span class="foot-small">Thank you for being part of our celebration</span>` +
       `</div></footer>`;
   }
   const v = $(".veil");
