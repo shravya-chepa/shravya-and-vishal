@@ -14,7 +14,7 @@ const CONFIG = {
     apple: "https://maps.apple.com/place?place-id=IE404C5C8E5A4F54&address=286+St+Ann%27s+Dr%2C+Laguna+Beach%2C+CA++92651%2C+United+States&coordinate=33.537449%2C-117.778404&name=Woman%27s+Club+of+Laguna+Beach&_provider=9902"
   },
   zola: "https://www.zola.com/wedding/shravyaandvishal/rsvp",   // the Zola RSVP page
-  rsvpBy: "November 15, 2026",
+  rsvpBy: "November 30, 2026",
   dressCode: "Indian or Western formal",
   dressNote: "Evenings get cool once the sun sets, about 50°F, so bring a layer.",
   guests: "About 50",
